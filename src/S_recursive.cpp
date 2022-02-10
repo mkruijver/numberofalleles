@@ -15,16 +15,13 @@ double S_recursive_internal(NumericVector &f, IntegerVector &alpha,
 
   auto it = memo.find(alpha_slice);
   if (it != memo.end()) {
-
     return it->second;
   }
 
   if (n == 1){
 
     double pr = 0.0;
-
     pr = power_sums[alpha[0]];
-
     memo[alpha_slice] = pr;
 
     return pr;
@@ -56,24 +53,49 @@ double S_recursive_internal(NumericVector &f, IntegerVector &alpha,
 }
 
 // [[Rcpp::export]]
+bool is_equal(NumericVector x, NumericVector y) {
+
+  if (x.size() != y.size()) return false;
+
+  return &x[0] == &y[0];
+}
+
+// [[Rcpp::export]]
 double S_recursive(NumericVector f, IntegerVector alpha) {
+
+  static NumericVector power_sums(0);
 
   // pre compute sums of powers for some speed up
   int max_power = sum(alpha) + 1;
 
-  NumericVector power_sums(max_power + 1);
-  for (int k = 0; k <= max_power; k++){
-    double sum = 0;
+  // initialise map for memoisation
+  static std::map<std::vector<int>, double> memo;
+  static NumericVector last_f = NumericVector::create();
 
-    for (int a = 0; a < f.size(); a++){
-      sum += std::pow(f[a], k);
-    }
+  bool different_f = !is_equal(last_f, f);
+  if (different_f){
+    // Rcout << "different f!\n";
 
-    power_sums[k] = sum;
+    memo.clear();
+    last_f = f;
+  }else{
+    // Rcout << "same f!\n";
+
   }
 
-  // initialise map for memoisation
-  std::map<std::vector<int>, double> memo;
+  if (different_f || (power_sums.length() < (max_power + 1))){
+    power_sums = NumericVector(max_power + 1);
+    for (int k = 0; k <= max_power; k++){
+      double sum = 0;
+
+      for (int a = 0; a < f.size(); a++){
+        sum += std::pow(f[a], k);
+      }
+
+      power_sums[k] = sum;
+    }
+
+  }
 
   return S_recursive_internal(f, alpha, alpha.size(), power_sums, memo);
 }

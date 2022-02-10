@@ -22,6 +22,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// is_equal
+bool is_equal(NumericVector x, NumericVector y);
+RcppExport SEXP _numberofalleles_is_equal(SEXP xSEXP, SEXP ySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type y(ySEXP);
+    rcpp_result_gen = Rcpp::wrap(is_equal(x, y));
+    return rcpp_result_gen;
+END_RCPP
+}
 // S_recursive
 double S_recursive(NumericVector f, IntegerVector alpha);
 RcppExport SEXP _numberofalleles_S_recursive(SEXP fSEXP, SEXP alphaSEXP) {
@@ -51,6 +63,7 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_numberofalleles_S_brute_force", (DL_FUNC) &_numberofalleles_S_brute_force, 2},
+    {"_numberofalleles_is_equal", (DL_FUNC) &_numberofalleles_is_equal, 2},
     {"_numberofalleles_S_recursive", (DL_FUNC) &_numberofalleles_S_recursive, 2},
     {"_numberofalleles_pr_sum", (DL_FUNC) &_numberofalleles_pr_sum, 4},
     {NULL, NULL, 0}

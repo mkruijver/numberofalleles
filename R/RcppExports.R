@@ -5,6 +5,10 @@ S_brute_force <- function(f, alpha) {
     .Call('_numberofalleles_S_brute_force', PACKAGE = 'numberofalleles', f, alpha)
 }
 
+is_equal <- function(x, y) {
+    .Call('_numberofalleles_is_equal', PACKAGE = 'numberofalleles', x, y)
+}
+
 S_recursive <- function(f, alpha) {
     .Call('_numberofalleles_S_recursive', PACKAGE = 'numberofalleles', f, alpha)
 }
