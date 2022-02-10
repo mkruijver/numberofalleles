@@ -22,6 +22,20 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// pr_sum
+NumericVector pr_sum(IntegerVector x1, NumericVector fx1, IntegerVector x2, NumericVector fx2);
+RcppExport SEXP _numberofalleles_pr_sum(SEXP x1SEXP, SEXP fx1SEXP, SEXP x2SEXP, SEXP fx2SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type x1(x1SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type fx1(fx1SEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type x2(x2SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type fx2(fx2SEXP);
+    rcpp_result_gen = Rcpp::wrap(pr_sum(x1, fx1, x2, fx2));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_hello_world
 List rcpp_hello_world();
 RcppExport SEXP _numberofalleles_rcpp_hello_world() {
@@ -35,6 +49,7 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_numberofalleles_Sbruteforce", (DL_FUNC) &_numberofalleles_Sbruteforce, 2},
+    {"_numberofalleles_pr_sum", (DL_FUNC) &_numberofalleles_pr_sum, 4},
     {"_numberofalleles_rcpp_hello_world", (DL_FUNC) &_numberofalleles_rcpp_hello_world, 0},
     {NULL, NULL, 0}
 };

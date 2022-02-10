@@ -5,6 +5,10 @@ Sbruteforce <- function(f, alpha) {
     .Call('_numberofalleles_Sbruteforce', PACKAGE = 'numberofalleles', f, alpha)
 }
 
+pr_sum <- function(x1, fx1, x2, fx2) {
+    .Call('_numberofalleles_pr_sum', PACKAGE = 'numberofalleles', x1, fx1, x2, fx2)
+}
+
 rcpp_hello_world <- function() {
     .Call('_numberofalleles_rcpp_hello_world', PACKAGE = 'numberofalleles')
 }
