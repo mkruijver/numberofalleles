@@ -10,3 +10,4 @@ Description: The number of distinct alleles observed in a DNA mixture is informa
 License: GPL (>= 2)
 Imports: Rcpp (>= 1.0.7)
 LinkingTo: Rcpp
+RoxygenNote: 7.1.2

@@ -10,6 +10,18 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
+// Sbruteforce
+double Sbruteforce(NumericVector f, IntegerVector alpha);
+RcppExport SEXP _numberofalleles_Sbruteforce(SEXP fSEXP, SEXP alphaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type f(fSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type alpha(alphaSEXP);
+    rcpp_result_gen = Rcpp::wrap(Sbruteforce(f, alpha));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_hello_world
 List rcpp_hello_world();
 RcppExport SEXP _numberofalleles_rcpp_hello_world() {
@@ -22,6 +34,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_numberofalleles_Sbruteforce", (DL_FUNC) &_numberofalleles_Sbruteforce, 2},
     {"_numberofalleles_rcpp_hello_world", (DL_FUNC) &_numberofalleles_rcpp_hello_world, 0},
     {NULL, NULL, 0}
 };
