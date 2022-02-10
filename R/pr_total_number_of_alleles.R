@@ -20,10 +20,6 @@
 pr_total_number_of_distinct_alleles <- function(contributors, freqs,
                                        pedigree, loci = names(freqs)){
 
-  # contributors = c("S1","S2","U1")
-  # loci = names(freqs)
-  # pedigree = ped_sibs
-
   if (!is.character(contributors)){
     stop("contributors should be a character vector")
   }
@@ -99,12 +95,10 @@ pr_total_number_of_distinct_alleles <- function(contributors, freqs,
 
   pr_by_locus <- list()
 
-  locus = loci[1]
   for (locus in loci){
     pr_locus <- stats::setNames(rep(0, 2 * number_of_contributors),
                                 seq(2 * number_of_contributors))
 
-    i_ibd=1
     for (i_ibd in seq_len(nrow(multi_person_IBD))){
       number_of_alleles <- 2 * number_of_unrelated_contributors +
                             multi_person_IBD$number_of_ancestral_alleles[i_ibd]
@@ -118,6 +112,9 @@ pr_total_number_of_distinct_alleles <- function(contributors, freqs,
       pr_locus[n] <- pr_locus[n] + ibd_pr_distinct *
                                    multi_person_IBD$Prob[i_ibd]
     }
+
+    # remove zeroes
+    pr_locus < pr_locus[pr_locus > 0]
 
     pr_by_locus[[locus]] <- pr_locus
   }

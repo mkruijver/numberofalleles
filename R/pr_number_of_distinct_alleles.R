@@ -46,7 +46,7 @@ pr_number_of_distinct_alleles <- function(number_of_alleles, f){
     pr_distinct[length(alpha)] <- pr_distinct[length(alpha)] + pr_by_partition[i]
   }
 
-  return(pr_distinct)
+  return(pr_distinct[pr_distinct>0])
 }
 
 get_weights <- function(x){
