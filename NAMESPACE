@@ -2,5 +2,6 @@
 
 export(pr_number_of_distinct_alleles)
 export(pr_total_number_of_distinct_alleles)
+export(read_allele_freqs)
 importFrom(Rcpp,evalCpp)
 useDynLib(numberofalleles)
