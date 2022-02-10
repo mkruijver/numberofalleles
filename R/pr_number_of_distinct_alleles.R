@@ -37,7 +37,8 @@ pr_number_of_distinct_alleles <- function(number_of_alleles, f){
 
   pr_by_partition <- numeric(length(partitions_list))
 
-  pr_distinct <- setNames(numeric(number_of_alleles), seq(number_of_alleles))
+  pr_distinct <- stats::setNames(numeric(number_of_alleles),
+                                 seq(number_of_alleles))
 
   for (i in seq_along(partitions_list)){
     alpha <- partitions_list[[i]]

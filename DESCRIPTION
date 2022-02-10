@@ -8,6 +8,6 @@ Authors@R:
            comment = c(ORCID = "0000-0002-6890-7632"))
 Description: The number of distinct alleles observed in a DNA mixture is informative of the number of contributors to the mixture. The package provides methods for computing the probability distribution of the number of distinct alleles in a mixture for a given set of allele frequencies. The mixture contributors may be related according to a provided pedigree.
 License: GPL (>= 2)
-Imports: Rcpp (>= 1.0.7)
+Imports: Rcpp (>= 1.0.7), pedtools, ribd, partitions
 LinkingTo: Rcpp
 RoxygenNote: 7.1.2
