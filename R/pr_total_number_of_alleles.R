@@ -15,6 +15,7 @@
 #' freqs <- list(locus1 = c(0.1, 0.9),
 #'               locus2 = c(0.25, 0.5, 0.25))
 #'
+#' # compute dist. of number of alleles for two siblings and one unrelated persons
 #' pr_total_number_of_distinct_alleles(contributors = c("S1","S2","U1"), freqs, ped_sibs)
 #' @export
 pr_total_number_of_distinct_alleles <- function(contributors, freqs,
