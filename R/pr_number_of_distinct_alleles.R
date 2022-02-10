@@ -30,7 +30,6 @@ pr_number_of_distinct_alleles <- function(number_of_alleles, f){
     stop("number_of_alleles needs to be integer valued")
   }
 
-
   partitions <- partitions::parts(number_of_alleles)
   partitions_list <- apply(partitions, 2, function(p) p[p>0], simplify = FALSE)
 
@@ -44,7 +43,7 @@ pr_number_of_distinct_alleles <- function(number_of_alleles, f){
     alpha <- partitions_list[[i]]
     pr_by_partition[i] <- weights[i] * Sbruteforce(f, alpha)
 
-    pr_distinct[length(alpha)] <- pr_by_partition[i]
+    pr_distinct[length(alpha)] <- pr_distinct[length(alpha)] + pr_by_partition[i]
   }
 
   return(pr_distinct)
