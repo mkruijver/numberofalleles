@@ -5,6 +5,7 @@ void recurs_S_brute_force(int i_recurs, IntegerVector i,
                           NumericVector f, IntegerVector alpha,
                           std::vector<bool> &a_available,
                           double &total_pr){
+  Rcpp::checkUserInterrupt();
 
   if (i_recurs == alpha.length()){
     // tail of recursion
@@ -32,7 +33,7 @@ void recurs_S_brute_force(int i_recurs, IntegerVector i,
 }
 
 // [[Rcpp::export]]
-double Sbruteforce(NumericVector f, IntegerVector alpha) {
+double S_brute_force(NumericVector f, IntegerVector alpha) {
 
   IntegerVector i(alpha.length());
 

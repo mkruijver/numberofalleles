@@ -4,12 +4,14 @@
 \alias{pr_number_of_distinct_alleles}
 \title{Compute probability distribution of number of distinct alleles in a DNA mixture at a locus}
 \usage{
-pr_number_of_distinct_alleles(number_of_alleles, f)
+pr_number_of_distinct_alleles(number_of_alleles, f, brute_force = FALSE)
 }
 \arguments{
 \item{number_of_alleles}{Integer. Number of (not necessarily distinct) alleles in the mixture.}
 
 \item{f}{Numeric Vector with allele frequencies}
+
+\item{brute_force}{Logical Should a brute force algorithm be used?}
 }
 \description{
 Compute probability distribution of number of distinct alleles in a DNA mixture at a locus

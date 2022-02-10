@@ -10,15 +10,27 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// Sbruteforce
-double Sbruteforce(NumericVector f, IntegerVector alpha);
-RcppExport SEXP _numberofalleles_Sbruteforce(SEXP fSEXP, SEXP alphaSEXP) {
+// S_brute_force
+double S_brute_force(NumericVector f, IntegerVector alpha);
+RcppExport SEXP _numberofalleles_S_brute_force(SEXP fSEXP, SEXP alphaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericVector >::type f(fSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type alpha(alphaSEXP);
-    rcpp_result_gen = Rcpp::wrap(Sbruteforce(f, alpha));
+    rcpp_result_gen = Rcpp::wrap(S_brute_force(f, alpha));
+    return rcpp_result_gen;
+END_RCPP
+}
+// S_recursive
+double S_recursive(NumericVector f, IntegerVector alpha);
+RcppExport SEXP _numberofalleles_S_recursive(SEXP fSEXP, SEXP alphaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type f(fSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type alpha(alphaSEXP);
+    rcpp_result_gen = Rcpp::wrap(S_recursive(f, alpha));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -38,7 +50,8 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_numberofalleles_Sbruteforce", (DL_FUNC) &_numberofalleles_Sbruteforce, 2},
+    {"_numberofalleles_S_brute_force", (DL_FUNC) &_numberofalleles_S_brute_force, 2},
+    {"_numberofalleles_S_recursive", (DL_FUNC) &_numberofalleles_S_recursive, 2},
     {"_numberofalleles_pr_sum", (DL_FUNC) &_numberofalleles_pr_sum, 4},
     {NULL, NULL, 0}
 };

@@ -2,13 +2,15 @@
 #'
 #' @param number_of_alleles Integer. Number of (not necessarily distinct) alleles in the mixture.
 #' @param f Numeric Vector with allele frequencies
+#' @param brute_force Logical Should a brute force algorithm be used?
 #' @details TODO
 #' @examples
 #' f <- c(A = 0.1, B = 0.2, C = 0.7)
 #'
 #' pr_number_of_distinct_alleles(3, f)
 #' @export
-pr_number_of_distinct_alleles <- function(number_of_alleles, f){
+pr_number_of_distinct_alleles <- function(number_of_alleles, f,
+                                          brute_force = FALSE){
 
   if (!is.numeric(f)){
     stop("f needs to be a numeric vector of allele frequencies")
@@ -42,7 +44,9 @@ pr_number_of_distinct_alleles <- function(number_of_alleles, f){
 
   for (i in seq_along(partitions_list)){
     alpha <- partitions_list[[i]]
-    pr_by_partition[i] <- weights[i] * Sbruteforce(f, alpha)
+
+    s <- if (brute_force) S_brute_force(f, alpha) else S_recursive(f, alpha)
+    pr_by_partition[i] <- weights[i] * s
 
     pr_distinct[length(alpha)] <- pr_distinct[length(alpha)] + pr_by_partition[i]
   }
