@@ -114,7 +114,7 @@ pr_total_number_of_distinct_alleles <- function(contributors, freqs,
     }
 
     # remove zeroes
-    pr_locus < pr_locus[pr_locus > 0]
+    pr_locus <- pr_locus[pr_locus > 0]
 
     pr_by_locus[[locus]] <- pr_locus
   }
