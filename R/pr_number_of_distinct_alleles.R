@@ -32,10 +32,11 @@ pr_number_of_distinct_alleles <- function(number_of_alleles, f,
     stop("number_of_alleles needs to be integer valued")
   }
 
+
   partitions <- partitions::parts(number_of_alleles)
   partitions_list <- apply(partitions, 2, function(p) p[p>0], simplify = FALSE)
 
-  weights <- sapply(partitions_list, get_weights)
+  weights <- sapply(partitions_list, weights_cpp)
 
   pr_by_partition <- numeric(length(partitions_list))
 
@@ -54,9 +55,9 @@ pr_number_of_distinct_alleles <- function(number_of_alleles, f,
   return(pr_distinct[pr_distinct>0])
 }
 
-get_weights <- function(x){
-  x <- x[x>0]
-
-  factorial(sum(x)) /
-    (prod(factorial(x)) * prod(factorial(rle(sort(x))$lengths)))
-}
+# get_weights <- function(x){
+#   x <- x[x>0]
+#
+#   factorial(sum(x)) /
+#     (prod(factorial(x)) * prod(factorial(rle(sort(x))$lengths)))
+# }

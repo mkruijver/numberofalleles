@@ -60,12 +60,24 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// weights2
+unsigned long long weights2(IntegerVector x);
+RcppExport SEXP _numberofalleles_weights2(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(weights2(x));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_numberofalleles_S_brute_force", (DL_FUNC) &_numberofalleles_S_brute_force, 2},
     {"_numberofalleles_is_equal", (DL_FUNC) &_numberofalleles_is_equal, 2},
     {"_numberofalleles_S_recursive", (DL_FUNC) &_numberofalleles_S_recursive, 2},
     {"_numberofalleles_pr_sum", (DL_FUNC) &_numberofalleles_pr_sum, 4},
+    {"_numberofalleles_weights2", (DL_FUNC) &_numberofalleles_weights2, 1},
     {NULL, NULL, 0}
 };
 

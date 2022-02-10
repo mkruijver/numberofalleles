@@ -17,3 +17,7 @@ pr_sum <- function(x1, fx1, x2, fx2) {
     .Call('_numberofalleles_pr_sum', PACKAGE = 'numberofalleles', x1, fx1, x2, fx2)
 }
 
+weights2 <- function(x) {
+    .Call('_numberofalleles_weights2', PACKAGE = 'numberofalleles', x)
+}
+
