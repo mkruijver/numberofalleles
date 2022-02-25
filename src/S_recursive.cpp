@@ -60,8 +60,7 @@ bool is_equal(NumericVector x, NumericVector y) {
   return &x[0] == &y[0];
 }
 
-// [[Rcpp::export]]
-double S_recursive(NumericVector f, IntegerVector alpha) {
+double S_recursive_hw(NumericVector f, IntegerVector alpha) {
 
   static NumericVector power_sums(0);
 
@@ -98,4 +97,62 @@ double S_recursive(NumericVector f, IntegerVector alpha) {
   }
 
   return S_recursive_internal(f, alpha, alpha.size(), power_sums, memo);
+}
+
+IntegerVector ek_(IntegerVector& x, int k){
+  IntegerVector y(x.size());
+
+  y[k - 1] = 1;
+  return y;
+}
+
+double S_recursive_fst_internal(NumericVector f, double fst,
+                                IntegerVector a, IntegerVector b){
+
+  // adapted from https://github.com/mikldk/DNAtools/blob/4abbd7a31de6407d411363a15cd72d22ac62c959/src/class_probsObj.h#L397
+
+  int len_b = b.size();
+
+  if(len_b == 0){
+    return S_recursive_hw(f, a);
+  }
+  else if(is_true(any(b == 0))){
+    return S_recursive_fst_internal(f, fst, a, b[b != 0]);
+  }
+  else{
+    if(b[len_b - 1] == 1 && len_b == 1){
+      return S_recursive_fst_internal(f, fst, a + ek_(a, len_b), head(b, len_b - 1));
+    }
+    else if(b[len_b - 1] == 1){
+      // print(b);
+      return (1.0 - fst) / (1 + (sum(b) - 2) * fst) *
+        S_recursive_fst_internal(f, fst, a + ek_(a, len_b), head(b, len_b - 1));
+    }
+    else{
+      return
+       ((b[len_b - 1] - 1) * fst * S_recursive_fst_internal(f, fst, a, b - ek_(b, len_b)) +
+        (1.0 - fst) * S_recursive_fst_internal(f, fst, a + ek_(a, len_b), b - ek_(b, len_b))) /
+          (1 + (sum(b) - 2) * fst);
+    }
+  }
+}
+
+// [[Rcpp::export]]
+double S_recursive(NumericVector f, IntegerVector alpha, double fst) {
+
+  if (fst!=0 && fst < 1e-16){
+    Rcpp::stop("fst!=0 && fst < 1e-16");
+  }
+  if (fst > 1){
+    Rcpp::stop("fst > 1");
+  }
+
+  if (abs(fst) == 0){
+    return S_recursive_hw(f, alpha);
+  }
+  else{
+    IntegerVector a(alpha.size());
+
+    return(S_recursive_fst_internal(f, fst, a, alpha));
+  }
 }

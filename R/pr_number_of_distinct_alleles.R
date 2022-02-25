@@ -2,6 +2,7 @@
 #'
 #' @param number_of_alleles Integer. Number of (not necessarily distinct) alleles in the mixture.
 #' @param f Numeric Vector with allele frequencies
+#' @param fst Numeric
 #' @param brute_force Logical Should a brute force algorithm be used?
 #' @details TODO
 #' @examples
@@ -10,6 +11,7 @@
 #' pr_number_of_distinct_alleles(3, f)
 #' @export
 pr_number_of_distinct_alleles <- function(number_of_alleles, f,
+                                          fst = 0,
                                           brute_force = FALSE){
 
   if (!is.numeric(f)){
@@ -32,6 +34,21 @@ pr_number_of_distinct_alleles <- function(number_of_alleles, f,
     stop("number_of_alleles needs to be integer valued")
   }
 
+  if (length(fst) != 1){
+    stop("fst needs to be length 1")
+  }
+
+  if (!is.numeric(fst)){
+    stop("fst needs to be numeric")
+  }
+
+  if (fst > 1){
+    stop("fst > 1")
+  }
+
+  if (fst < 0){
+    stop("fst < 0")
+  }
 
   partitions <- partitions::parts(number_of_alleles)
   partitions_list <- apply(partitions, 2, function(p) p[p>0], simplify = FALSE)
@@ -46,7 +63,7 @@ pr_number_of_distinct_alleles <- function(number_of_alleles, f,
   for (i in seq_along(partitions_list)){
     alpha <- partitions_list[[i]]
 
-    s <- if (brute_force) S_brute_force(f, alpha) else S_recursive(f, alpha)
+    s <- if (brute_force) S_brute_force(f, alpha, fst) else S_recursive(f, alpha, fst)
     pr_by_partition[i] <- weights[i] * s
 
     pr_distinct[length(alpha)] <- pr_distinct[length(alpha)] + pr_by_partition[i]

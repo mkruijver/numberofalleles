@@ -2,6 +2,7 @@
 #'
 #' @param contributors Character vector with unique names of contributors. Valid names are "U1", "U2", ... for unrelated contributors or the names of pedigree members for related contributors.
 #' @param freqs Allele frequencies (see \link{read_allele_freqs})
+#' @param fst Numeric
 #' @param pedigree (optionally) \link[pedtools]{ped} object
 #' @param loci Character vector of locus names (defaults to names attr. of \code{freqs})
 #' @details TODO
@@ -16,7 +17,8 @@
 #'               locus2 = c(0.25, 0.5, 0.25))
 #'
 #' # compute dist. of number of alleles for two siblings and one unrelated persons
-#' pr_total_number_of_distinct_alleles(contributors = c("S1","S2","U1"), freqs, ped_sibs)
+#' pr_total_number_of_distinct_alleles(contributors = c("S1","S2","U1"), freqs,
+#'                                     pedigree = ped_sibs)
 #'
 #' ## GlobalFiler example
 #' freqs <- read_allele_freqs(system.file("extdata","FBI_extended_Cauc.csv",
@@ -33,6 +35,7 @@
 #' barplot(p_gf)
 #' @export
 pr_total_number_of_distinct_alleles <- function(contributors, freqs,
+                                                fst = 0,
                                        pedigree, loci = names(freqs)){
 
   if (!is.character(contributors)){
@@ -120,7 +123,8 @@ pr_total_number_of_distinct_alleles <- function(contributors, freqs,
 
       f <- freqs[[locus]]
 
-      ibd_pr_distinct <- pr_number_of_distinct_alleles(number_of_alleles, f)
+      ibd_pr_distinct <- pr_number_of_distinct_alleles(number_of_alleles, f,
+                                                       fst = fst)
 
       n <- as.integer(names(ibd_pr_distinct))
 

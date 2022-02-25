@@ -11,14 +11,15 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // S_brute_force
-double S_brute_force(NumericVector f, IntegerVector alpha);
-RcppExport SEXP _numberofalleles_S_brute_force(SEXP fSEXP, SEXP alphaSEXP) {
+double S_brute_force(NumericVector f, IntegerVector alpha, double fst);
+RcppExport SEXP _numberofalleles_S_brute_force(SEXP fSEXP, SEXP alphaSEXP, SEXP fstSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericVector >::type f(fSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type alpha(alphaSEXP);
-    rcpp_result_gen = Rcpp::wrap(S_brute_force(f, alpha));
+    Rcpp::traits::input_parameter< double >::type fst(fstSEXP);
+    rcpp_result_gen = Rcpp::wrap(S_brute_force(f, alpha, fst));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -35,14 +36,15 @@ BEGIN_RCPP
 END_RCPP
 }
 // S_recursive
-double S_recursive(NumericVector f, IntegerVector alpha);
-RcppExport SEXP _numberofalleles_S_recursive(SEXP fSEXP, SEXP alphaSEXP) {
+double S_recursive(NumericVector f, IntegerVector alpha, double fst);
+RcppExport SEXP _numberofalleles_S_recursive(SEXP fSEXP, SEXP alphaSEXP, SEXP fstSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericVector >::type f(fSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type alpha(alphaSEXP);
-    rcpp_result_gen = Rcpp::wrap(S_recursive(f, alpha));
+    Rcpp::traits::input_parameter< double >::type fst(fstSEXP);
+    rcpp_result_gen = Rcpp::wrap(S_recursive(f, alpha, fst));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -60,24 +62,24 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// weights2
-unsigned long long weights2(IntegerVector x);
-RcppExport SEXP _numberofalleles_weights2(SEXP xSEXP) {
+// weights_cpp
+unsigned long long weights_cpp(IntegerVector x);
+RcppExport SEXP _numberofalleles_weights_cpp(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< IntegerVector >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(weights2(x));
+    rcpp_result_gen = Rcpp::wrap(weights_cpp(x));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_numberofalleles_S_brute_force", (DL_FUNC) &_numberofalleles_S_brute_force, 2},
+    {"_numberofalleles_S_brute_force", (DL_FUNC) &_numberofalleles_S_brute_force, 3},
     {"_numberofalleles_is_equal", (DL_FUNC) &_numberofalleles_is_equal, 2},
-    {"_numberofalleles_S_recursive", (DL_FUNC) &_numberofalleles_S_recursive, 2},
+    {"_numberofalleles_S_recursive", (DL_FUNC) &_numberofalleles_S_recursive, 3},
     {"_numberofalleles_pr_sum", (DL_FUNC) &_numberofalleles_pr_sum, 4},
-    {"_numberofalleles_weights2", (DL_FUNC) &_numberofalleles_weights2, 1},
+    {"_numberofalleles_weights_cpp", (DL_FUNC) &_numberofalleles_weights_cpp, 1},
     {NULL, NULL, 0}
 };
 
