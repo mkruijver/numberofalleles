@@ -13,6 +13,7 @@ double S_recursive_internal(NumericVector &f, IntegerVector &alpha,
   std::vector<int> alpha_slice(alpha.begin(), alpha.begin() + n);
   std::sort(alpha_slice.begin(), alpha_slice.end());
 
+  // check if we have computed this already
   auto it = memo.find(alpha_slice);
   if (it != memo.end()) {
     return it->second;
@@ -22,7 +23,8 @@ double S_recursive_internal(NumericVector &f, IntegerVector &alpha,
 
     double pr = 0.0;
     pr = power_sums[alpha[0]];
-    memo[alpha_slice] = pr;
+
+    memo[alpha_slice] = pr; // store in lookup
 
     return pr;
   }
@@ -45,6 +47,7 @@ double S_recursive_internal(NumericVector &f, IntegerVector &alpha,
 
     double result = term_one * term_two - sum_terms;
 
+    // store result in lookup
     memo[alpha_slice] = result;
 
     return(result);
@@ -99,39 +102,49 @@ double S_recursive_hw(NumericVector f, IntegerVector alpha) {
   return S_recursive_internal(f, alpha, alpha.size(), power_sums, memo);
 }
 
-IntegerVector ek_(IntegerVector& x, int k){
-  IntegerVector y(x.size());
-
-  y[k - 1] = 1;
-  return y;
-}
-
 double S_recursive_fst_internal(NumericVector f, double fst,
-                                IntegerVector a, IntegerVector b){
+                                IntegerVector a, IntegerVector b,
+                                int len_b,
+                                NumericVector &power_sums,
+                                std::map<std::vector<int>, double> &memo){
 
   // adapted from https://github.com/mikldk/DNAtools/blob/4abbd7a31de6407d411363a15cd72d22ac62c959/src/class_probsObj.h#L397
 
-  int len_b = b.size();
-
   if(len_b == 0){
-    return S_recursive_hw(f, a);
-  }
-  else if(is_true(any(b == 0))){
-    return S_recursive_fst_internal(f, fst, a, b[b != 0]);
+    return S_recursive_internal(f, a, a.size(), power_sums, memo);
   }
   else{
     if(b[len_b - 1] == 1 && len_b == 1){
-      return S_recursive_fst_internal(f, fst, a + ek_(a, len_b), head(b, len_b - 1));
+
+      a[len_b - 1]++;
+      double s = S_recursive_fst_internal(f, fst, a, b, len_b - 1,  power_sums, memo);
+      a[len_b - 1]--;
+
+      return s;
     }
     else if(b[len_b - 1] == 1){
       // print(b);
-      return (1.0 - fst) / (1 + (sum(b) - 2) * fst) *
-        S_recursive_fst_internal(f, fst, a + ek_(a, len_b), head(b, len_b - 1));
+
+      a[len_b - 1]++;
+      double s = S_recursive_fst_internal(f, fst, a, b, len_b - 1,  power_sums, memo);
+      a[len_b - 1]--;
+
+      return (1.0 - fst) / (1 + (sum(b) - 2) * fst) * s;
     }
     else{
-      return
-       ((b[len_b - 1] - 1) * fst * S_recursive_fst_internal(f, fst, a, b - ek_(b, len_b)) +
-        (1.0 - fst) * S_recursive_fst_internal(f, fst, a + ek_(a, len_b), b - ek_(b, len_b))) /
+
+      b[len_b - 1]--;
+      double s1 = S_recursive_fst_internal(f, fst, a, b, len_b, power_sums, memo);
+      b[len_b - 1]++;
+
+
+      a[len_b - 1]++;
+      b[len_b - 1]--;
+      double s2 = S_recursive_fst_internal(f, fst, a, b, len_b, power_sums, memo);
+      a[len_b - 1]--;
+      b[len_b - 1]++;
+
+      return ((b[len_b - 1] - 1) * fst * s1 + (1.0 - fst) * s2) /
           (1 + (sum(b) - 2) * fst);
     }
   }
@@ -153,6 +166,37 @@ double S_recursive(NumericVector f, IntegerVector alpha, double fst) {
   else{
     IntegerVector a(alpha.size());
 
-    return(S_recursive_fst_internal(f, fst, a, alpha));
+    static NumericVector power_sums(0);
+
+    // pre compute sums of powers for some speed up
+    int max_power = sum(alpha) + 1;
+
+    // initialise map for memoisation
+    static std::map<std::vector<int>, double> memo;
+    static NumericVector last_f = NumericVector::create();
+
+    bool different_f = !is_equal(last_f, f);
+    if (different_f){
+      memo.clear();
+      last_f = f;
+    }
+
+    if (different_f || (power_sums.length() < (max_power + 1))){
+      power_sums = NumericVector(max_power + 1);
+      for (int k = 0; k <= max_power; k++){
+        double sum = 0;
+
+        for (int a = 0; a < f.size(); a++){
+          sum += std::pow(f[a], k);
+        }
+
+        power_sums[k] = sum;
+      }
+
+    }
+
+    double result = S_recursive_fst_internal(f, fst, a, alpha, alpha.size(), power_sums, memo);
+
+    return(result);
   }
 }
