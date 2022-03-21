@@ -2,25 +2,46 @@
 % Please edit documentation in R/pr_number_of_distinct_alleles.R
 \name{pr_number_of_distinct_alleles}
 \alias{pr_number_of_distinct_alleles}
-\title{Compute probability distribution of number of distinct alleles in a DNA mixture at a locus}
+\title{Compute the probability distribution of the number of distinct alleles observed in a DNA mixture for a locus}
 \usage{
-pr_number_of_distinct_alleles(number_of_alleles, f, brute_force = FALSE)
+pr_number_of_distinct_alleles(
+  number_of_independent_alleles,
+  f,
+  fst = 0,
+  brute_force = FALSE
+)
 }
 \arguments{
-\item{number_of_alleles}{Integer. Number of (not necessarily distinct) alleles in the mixture.}
+\item{number_of_independent_alleles}{Integer. Number of independent alleles in the mixture.}
 
-\item{f}{Numeric Vector with allele frequencies}
+\item{f}{Numeric vector with allele frequencies}
 
-\item{brute_force}{Logical Should a brute force algorithm be used?}
+\item{fst}{Numeric value for sub-population correction (also known as theta)}
+
+\item{brute_force}{Logical. Should a brute force algorithm be used?}
 }
 \description{
-Compute probability distribution of number of distinct alleles in a DNA mixture at a locus
+For a given number of \emph{independent} alleles, compute the probability distribution of the number of \emph{distinct} alleles observed in a DNA mixture.
 }
 \details{
-TODO
+Due to allele sharing between DNA mixture contributors, the number of \emph{distinct} alleles observed in a mixture is often less than the number of independent alleles in the mixture. For example, if mixture comprises two unrelated contributors, there are four independent alleles. Some of these four independent alleles may be of the same allelic type so that at least one and at most four distinct alleles are observed.
+
+This function computes the probability distribution of the number of \emph{distinct} alleles observed when the mixtures comprises a given number of \emph{independent} alleles. Optionally, a sub-population correction may be applied by setting \code{fst>0}.
+
+An efficient way of computing the probability distribution was given by Tvedebrink (2014) and was slightly adapted by Kruijver & Curran (2022) to handle the case of an odd number of independent alleles. A much slower brute force algorithm is also implemented (argument \code{brute_force=TRUE}) for testing purposes.
 }
 \examples{
 f <- c(A = 0.1, B = 0.2, C = 0.7)
 
-pr_number_of_distinct_alleles(3, f)
+p <- pr_number_of_distinct_alleles(3, f)
+p_by_hand <- c(sum(f^3), 1 - sum(f^3) - 6 * prod(f), 6 * prod(f))
+stopifnot(all.equal(as.vector(p), p_by_hand))
+}
+\references{
+M. Kruijver & J.Curran (2022). 'The number of alleles in DNA mixtures with related
+contributors', manuscript submitted
+
+T. Tvedebrink (2014). 'On the exact distribution of the number of
+alleles in DNA mixtures', International Journal of Legal Medicine; 128(3):427--37.
+<https://doi.org/10.1007/s00414-013-0951-3>
 }

@@ -1,6 +1,6 @@
 #' numberofalleles
 #'
-#' Description of your package
+#' Probabilities for observing a number of distinct alleles in a forensic DNA mixture
 #'
 #' @docType package
 #' @author Maarten Kruijver

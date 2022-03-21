@@ -5,7 +5,7 @@
 \alias{numberofalleles}
 \title{numberofalleles}
 \description{
-Description of your package
+Probabilities for observing a number of distinct alleles in a forensic DNA mixture
 }
 \author{
 Maarten Kruijver

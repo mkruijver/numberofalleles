@@ -4,8 +4,10 @@ Title: Compute the probability distribution of the number of alleles in a DNA mi
 Version: 0.1
 Date: 2022-02-10
 Authors@R: 
-    person("Maarten", "Kruijver", , "maarten.kruijver@esr.cri.nz", role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0002-6890-7632"))
+    c(person("Maarten", "Kruijver", , "maarten.kruijver@esr.cri.nz", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-6890-7632")),
+    person("James", "Curran", , "j.curran@auckland.ac.nz", role = c("aut"),
+           comment = c(ORCID = "0000-0003-3323-6733")))
 Description: The number of distinct alleles observed in a DNA mixture is informative of the number of contributors to the mixture. The package provides methods for computing the probability distribution of the number of distinct alleles in a mixture for a given set of allele frequencies. The mixture contributors may be related according to a provided pedigree.
 License: GPL (>= 2)
 Imports: Rcpp (>= 1.0.7), pedtools, ribd, partitions
