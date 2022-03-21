@@ -1,11 +1,14 @@
-#' @title Compute probability distribution of total number of distinct alleles in a DNA mixture
+#' @title Compute the probability distribution of total number of distinct alleles in a DNA mixture
 #'
 #' @param contributors Character vector with unique names of contributors. Valid names are "U1", "U2", ... for unrelated contributors or the names of pedigree members for related contributors.
 #' @param freqs Allele frequencies (see \link{read_allele_freqs})
 #' @param fst Numeric
 #' @param pedigree (optionally) \link[pedtools]{ped} object
 #' @param loci Character vector of locus names (defaults to names attr. of \code{freqs})
-#' @details TODO
+#' @details A DNA mixture of \eqn{n} contributors contains \eqn{2n} \emph{independent} alleles per locus if the contributors are unrelated; fewer if they are related. This function computes the probability distribution of the total number of \emph{distinct} alleles observed across all loci. Mixture contributors may be related according to an optionally specified pedigree. Optionally, a sub-population correction may be applied by setting \code{fst>0}.
+#'
+#'The case where all contributors are unrelated was discussed by Tvedebrink (2014) and is implemented in the \code{DNAtools} package. Kruijver & Curran (2022) extended this to include related contributors by exploiting the \link[ribd]{multiPersonIBD} function in the \code{ribd} package.
+#'
 #' @examples
 #' # define a pedigree of siblings S1 and S2 (and their parents)
 #' ped_sibs <- pedtools::nuclearPed(nch = 2,
@@ -33,6 +36,13 @@
 #'                                             freqs = freqs, loci = gf_loci)
 #'
 #' barplot(p_gf)
+#' @references
+#' M. Kruijver & J.Curran (2022). 'The number of alleles in DNA mixtures with related
+#' contributors', manuscript submitted
+#'
+#' T. Tvedebrink (2014). 'On the exact distribution of the number of
+#' alleles in DNA mixtures', International Journal of Legal Medicine; 128(3):427--37.
+#' <https://doi.org/10.1007/s00414-013-0951-3>
 #' @export
 pr_total_number_of_distinct_alleles <- function(contributors, freqs,
                                                 fst = 0,
