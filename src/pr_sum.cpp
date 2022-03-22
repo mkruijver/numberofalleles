@@ -36,7 +36,7 @@ NumericVector pr_sum(IntegerVector x1, NumericVector fx1,
   // convolution
   for (int i1 = 0; i1 < x1.size(); i1++){
 
-    if (x1[i1] == 0) continue;
+    if (fx1[i1] == 0) continue;
 
     for (int i = 0; i < idx2.size(); i++){
       int i2 = idx2[i];
