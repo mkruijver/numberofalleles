@@ -2,8 +2,9 @@
 #'
 #' @param contributors Character vector with unique names of contributors. Valid names are "U1", "U2", ... for unrelated contributors or the names of pedigree members for related contributors.
 #' @param freqs Allele frequencies (see \link{read_allele_freqs})
-#' @param fst Numeric
 #' @param pedigree (optionally) \link[pedtools]{ped} object
+#' @param dropout_prs Numeric vector. Dropout probabilities per contributor. Defaults to zeroes.
+#' @param fst Numeric. Defaults to 0.
 #' @param loci Character vector of locus names (defaults to names attr. of \code{freqs})
 #' @details A DNA mixture of \eqn{n} contributors contains \eqn{2n} \emph{independent} alleles per locus if the contributors are unrelated; fewer if they are related. This function computes the probability distribution of the total number of \emph{distinct} alleles observed across all loci. Mixture contributors may be related according to an optionally specified pedigree. Optionally, a sub-population correction may be applied by setting \code{fst>0}.
 #'
@@ -11,9 +12,7 @@
 #'
 #' @examples
 #' # define a pedigree of siblings S1 and S2 (and their parents)
-#' ped_sibs <- pedtools::nuclearPed(nch = 2,
-#' father = "F", mother = "M",
-#' children = c("S1", "S2"))
+#' ped_sibs <- pedtools::nuclearPed(children = c("S1", "S2"))
 #'
 #' # define allele frequencies
 #' freqs <- list(locus1 = c(0.1, 0.9),
@@ -23,7 +22,7 @@
 #' pr_total_number_of_distinct_alleles(contributors = c("S1","S2","U1"), freqs,
 #'                                     pedigree = ped_sibs)
 #'
-#' ## GlobalFiler example
+#' ## GlobalFiler example (2 unrelated contributors)
 #' freqs <- read_allele_freqs(system.file("extdata","FBI_extended_Cauc.csv",
 #' package = "numberofalleles"))
 #'
@@ -44,9 +43,10 @@
 #' alleles in DNA mixtures', International Journal of Legal Medicine; 128(3):427--37.
 #' <https://doi.org/10.1007/s00414-013-0951-3>
 #' @export
-pr_total_number_of_distinct_alleles <- function(contributors, freqs,
-                                                fst = 0,
-                                       pedigree, loci = names(freqs)){
+pr_total_number_of_distinct_alleles <-
+  function(contributors, freqs, pedigree,
+           dropout_prs = rep(0., length(contributors)),
+           fst = 0, loci = names(freqs)){
 
   if (!is.character(contributors)){
     stop("contributors should be a character vector")
@@ -96,50 +96,79 @@ pr_total_number_of_distinct_alleles <- function(contributors, freqs,
       stop(paste0("freqs not available for locus "), locus)
     }
   }
+
+  if (!is.numeric(dropout_prs)){
+    stop("dropout_prs needs to be a numeric vector")
+  }
+
+  if (any(dropout_prs < 0)){
+    stop("dropout_prs needs to be non-negative")
+  }
+
+  if (any(dropout_prs > 1)){
+    stop("dropout_prs should not exceed 1")
+  }
+
+  if (length(dropout_prs) != length(contributors)){
+    stop("contributors and dropout_prs need to have the same length")
+  }
+
+
   if (!isTRUE(all.equal(rep(1.0, length(loci)),
                         unname(sapply(freqs[loci], sum))))){
     warning("freqs do not sum to 1 at all selected loci")
   }
 
+  # first determine pr. dist. of number of independent alleles
+  # for pedigree members and unrelated persons
 
   ped_contributors <- contributors[contributors %in% ped_names]
   number_of_contributors <- length(contributors)
 
   if (length(ped_contributors) > 0){
-    # leverage ribd package to obtain multi person IBD states
-    multi_person_IBD <- ribd::multiPersonIBD(pedigree, ids = ped_contributors)
 
-    # determine number of distinct ancestral alleles for each IBD state
-    multi_person_IBD$number_of_ancestral_alleles <- apply(
-      multi_person_IBD[-1], 1, function(row){
-        max(as.integer(unlist(strsplit(unlist(row), split = " "))))
-      })
+    ped_dropout_prs <- dropout_prs[match(ped_contributors, contributors)]
+
+    pr_num_indep_alleles_ped <- pr_independent_alleles_ped(
+        pedigree = pedigree, ped_contributors = ped_contributors,
+        dropout_prs = ped_dropout_prs)
   }else{
     # create dummy
-    multi_person_IBD <- data.frame(Prob=1, number_of_ancestral_alleles = 0)
+    pr_num_indep_alleles_ped <- stats::setNames(1., "0")
   }
 
   number_of_unrelated_contributors <- length(unr_names)
 
+  if (number_of_unrelated_contributors > 0){
+    unr_dropout_prs <- dropout_prs[match(unr_names, contributors)]
+    pr_num_indep_alleles_unr <- pr_independent_alleles(unr_dropout_prs)
+  }else{
+    # create dummy
+    pr_num_indep_alleles_unr <- stats::setNames(1., "0")
+  }
+
+  # number of indep. alleles is the sum of those for pedigree members
+  # and the unrelateds
+  pr_num_indep_alleles <- compute_pr_of_sum(
+    list(pr_num_indep_alleles_unr, pr_num_indep_alleles_ped))
+
   pr_by_locus <- list()
 
+  # compute pr. dist. of # distinct alleles locus-wise
   for (locus in loci){
-    pr_locus <- stats::setNames(rep(0, 2 * number_of_contributors),
-                                seq(2 * number_of_contributors))
+    pr_locus <- stats::setNames(rep(0, 2 * number_of_contributors + 1),
+                                0:(2 * number_of_contributors))
 
-    for (i_ibd in seq_len(nrow(multi_person_IBD))){
-      number_of_alleles <- 2 * number_of_unrelated_contributors +
-                            multi_person_IBD$number_of_ancestral_alleles[i_ibd]
+    f <- freqs[[locus]]
 
-      f <- freqs[[locus]]
+    for (i in seq_along(pr_num_indep_alleles)){
+      num_indep_alleles <- as.integer(names(pr_num_indep_alleles)[i])
+      pr <- pr_num_indep_alleles[i]
 
-      ibd_pr_distinct <- pr_number_of_distinct_alleles(number_of_alleles, f,
-                                                       fst = fst)
+      pr_distinct <- pr_number_of_distinct_alleles(num_indep_alleles, f, fst = fst)
 
-      n <- as.integer(names(ibd_pr_distinct))
-
-      pr_locus[n] <- pr_locus[n] + ibd_pr_distinct *
-                                   multi_person_IBD$Prob[i_ibd]
+      idx <- match(names(pr_distinct), names(pr_locus))
+      pr_locus[idx] <- pr_locus[idx] + pr_distinct * pr
     }
 
     # remove zeroes
@@ -148,5 +177,6 @@ pr_total_number_of_distinct_alleles <- function(contributors, freqs,
     pr_by_locus[[locus]] <- pr_locus
   }
 
+  # sum across loci to obtain result
   compute_pr_of_sum(pr_by_locus)
 }
