@@ -48,6 +48,10 @@ pr_number_of_distinct_alleles <- function(number_of_independent_alleles, f,
     stop("number_of_independent_alleles needs to be integer valued")
   }
 
+  if (number_of_independent_alleles < 0){
+    stop("number_of_independent_alleles needs to be non-negative")
+  }
+
   if (length(fst) != 1){
     stop("fst needs to be length 1")
   }
@@ -62,6 +66,10 @@ pr_number_of_distinct_alleles <- function(number_of_independent_alleles, f,
 
   if (fst < 0){
     stop("fst < 0")
+  }
+
+  if (number_of_independent_alleles == 0){
+    return(stats::setNames(1., "0"))
   }
 
   partitions <- partitions::parts(number_of_independent_alleles)
