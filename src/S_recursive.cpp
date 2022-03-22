@@ -160,6 +160,8 @@ double S_recursive(NumericVector f, IntegerVector alpha, double fst) {
     Rcpp::stop("fst > 1");
   }
 
+  if (alpha.size() > f.size()) return 0.;
+
   if (abs(fst) == 0){
     return S_recursive_hw(f, alpha);
   }
