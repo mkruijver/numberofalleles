@@ -102,6 +102,16 @@ double S_recursive_hw(NumericVector f, IntegerVector alpha) {
   return S_recursive_internal(f, alpha, alpha.size(), power_sums, memo);
 }
 
+long head_sum(IntegerVector x, int length){
+  long total = 0;
+
+  for (int i = 0; i < length; i++){
+    total += x[i];
+  }
+
+  return total;
+}
+
 double S_recursive_fst_internal(NumericVector f, double fst,
                                 IntegerVector a, IntegerVector b,
                                 int len_b,
@@ -129,7 +139,7 @@ double S_recursive_fst_internal(NumericVector f, double fst,
       double s = S_recursive_fst_internal(f, fst, a, b, len_b - 1,  power_sums, memo);
       a[len_b - 1]--;
 
-      return (1.0 - fst) / (1 + (sum(b) - 2) * fst) * s;
+      return (1.0 - fst) / (1 + (head_sum(b, len_b) - 2) * fst) * s;
     }
     else{
 
@@ -145,7 +155,7 @@ double S_recursive_fst_internal(NumericVector f, double fst,
       b[len_b - 1]++;
 
       return ((b[len_b - 1] - 1) * fst * s1 + (1.0 - fst) * s2) /
-          (1 + (sum(b) - 2) * fst);
+          (1 + (head_sum(b, len_b) - 2) * fst);
     }
   }
 }
