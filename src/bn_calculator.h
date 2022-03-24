@@ -10,6 +10,8 @@ private:
   NumericVector _gamma;
   double _gamma_dot;
 
+  NumericVector _f;
+
 public:
   int number_of_alleles;
 
@@ -28,11 +30,21 @@ public:
     _gamma0 = alpha * f;
     _gamma0_dot = sum(_gamma0);
 
+    _f = f;
+
     reset();
   }
 
   double pr_next(int a){
-    double pr = _gamma[a] / _gamma_dot;
+
+    double pr;
+    // deal with the case: first allele, Fst=0
+    if (_gamma_dot == 0){
+      pr = _f[a];
+    }
+    else{
+      pr = _gamma[a] / _gamma_dot;
+    }
 
     // increase pseudo count
     _gamma[a]++;
