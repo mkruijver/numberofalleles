@@ -17,15 +17,12 @@ pr_independent_alleles_ped(pedigree, ped_contributors, dropout_prs)
 When mixture contributors are related according to a pedigree, they may share some alleles identical by descent so that their total number of \emph{independent} alleles is smaller than two times the number of contributors. The number of \emph{independent} alleles can be further reduced if dropout plays a role. This function computes the probability distribution of the number of independent alleles that related mixture contributors have in total for a locus given their dropout parameters. Note that the number of \emph{distinct} alleles that is observed at the locus is typically smaller than the number of independent alleles due to allele sharing.
 }
 \examples{
-# a dropout pr. of 0.5
-p <- pr_independent_alleles(0.5)
-stopifnot(all.equal(as.vector(p),
-                    c(0.5^2, 2 * 0.5 * 0.5, (1-0.5)^2)))
-
-# one contrib. without dropout and one with d=0.5
-p1 <- pr_independent_alleles(c(0, 0.5))
-stopifnot(identical(as.integer(names(p1)),
-                    as.integer(names(p)) + 2L))
+# without dropout, a father-mother-child mixture has 4 indep. alleles
+p <- pr_independent_alleles_ped(pedtools::nuclearPed(),
+                                ped_contributors = as.character(1:3),
+                                dropout_prs = rep(0, 3))
+stopifnot(identical(p,
+                    stats::setNames(1., "4")))
 }
 \seealso{
 \link{pr_independent_alleles}

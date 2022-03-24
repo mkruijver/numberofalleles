@@ -7,8 +7,9 @@
 pr_total_number_of_distinct_alleles(
   contributors,
   freqs,
-  fst = 0,
   pedigree,
+  dropout_prs = rep(0, length(contributors)),
+  fst = 0,
   loci = names(freqs)
 )
 }
@@ -17,9 +18,11 @@ pr_total_number_of_distinct_alleles(
 
 \item{freqs}{Allele frequencies (see \link{read_allele_freqs})}
 
-\item{fst}{Numeric}
-
 \item{pedigree}{(optionally) \link[pedtools]{ped} object}
+
+\item{dropout_prs}{Numeric vector. Dropout probabilities per contributor. Defaults to zeroes.}
+
+\item{fst}{Numeric. Defaults to 0.}
 
 \item{loci}{Character vector of locus names (defaults to names attr. of \code{freqs})}
 }
@@ -33,9 +36,7 @@ The case where all contributors are unrelated was discussed by Tvedebrink (2014)
 }
 \examples{
 # define a pedigree of siblings S1 and S2 (and their parents)
-ped_sibs <- pedtools::nuclearPed(nch = 2,
-father = "F", mother = "M",
-children = c("S1", "S2"))
+ped_sibs <- pedtools::nuclearPed(children = c("S1", "S2"))
 
 # define allele frequencies
 freqs <- list(locus1 = c(0.1, 0.9),
@@ -45,7 +46,7 @@ freqs <- list(locus1 = c(0.1, 0.9),
 pr_total_number_of_distinct_alleles(contributors = c("S1","S2","U1"), freqs,
                                     pedigree = ped_sibs)
 
-## GlobalFiler example
+## GlobalFiler example (2 unrelated contributors)
 freqs <- read_allele_freqs(system.file("extdata","FBI_extended_Cauc.csv",
 package = "numberofalleles"))
 
