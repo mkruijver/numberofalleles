@@ -1,14 +1,14 @@
 #' @title Compute the probability distribution of total number of distinct alleles in a DNA mixture
 #'
 #' @param contributors Character vector with unique names of contributors. Valid names are "U1", "U2", ... for unrelated contributors or the names of pedigree members for related contributors.
-#' @param freqs Allele frequencies (see \link{read_allele_freqs})
-#' @param pedigree (optionally) \link[pedtools]{ped} object
+#' @param freqs Allele frequencies (see [read_allele_freqs])
+#' @param pedigree (optionally) [ped][pedtools::ped] object
 #' @param dropout_prs Numeric vector. Dropout probabilities per contributor. Defaults to zeroes.
 #' @param fst Numeric. Defaults to 0.
-#' @param loci Character vector of locus names (defaults to names attr. of \code{freqs})
-#' @details A DNA mixture of \eqn{n} contributors contains \eqn{2n} \emph{independent} alleles per locus if the contributors are unrelated; fewer if they are related. This function computes the probability distribution of the total number of \emph{distinct} alleles observed across all loci. Mixture contributors may be related according to an optionally specified pedigree. Optionally, a sub-population correction may be applied by setting \code{fst>0}.
+#' @param loci Character vector of locus names (defaults to names attr. of `freqs`)
+#' @details A DNA mixture of \eqn{n} contributors contains \eqn{2n} *independent* alleles per locus if the contributors are unrelated; fewer if they are related. This function computes the probability distribution of the total number of *distinct* alleles observed across all loci. Mixture contributors may be related according to an optionally specified pedigree. Optionally, a sub-population correction may be applied by setting `fst>0`.
 #'
-#'The case where all contributors are unrelated was discussed by Tvedebrink (2014) and is implemented in the \code{DNAtools} package. Kruijver & Curran (2022) extended this to include related contributors by exploiting the \link[ribd]{multiPersonIBD} function in the \code{ribd} package.
+#'The case where all contributors are unrelated was discussed by Tvedebrink (2014) and is implemented in the `DNAtools` package. Kruijver & Curran (2022) extended this to include related contributors by exploiting the [multiPersonIBD][ribd::multiPersonIBD] function in the `ribd` package.
 #'
 #' @examples
 #' # define a pedigree of siblings S1 and S2 (and their parents)

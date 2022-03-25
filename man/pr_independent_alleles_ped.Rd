@@ -7,7 +7,7 @@
 pr_independent_alleles_ped(pedigree, ped_contributors, dropout_prs)
 }
 \arguments{
-\item{pedigree}{\link[pedtools]{ped} object}
+\item{pedigree}{\link[pedtools:ped]{ped} object}
 
 \item{ped_contributors}{Character vector with unique names of contributors. Valid names are the names of pedigree members.}
 

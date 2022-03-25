@@ -3,10 +3,10 @@
 #' @param number_of_independent_alleles Integer. Number of independent alleles in the mixture.
 #' @param f Numeric vector with allele frequencies
 #' @param fst Numeric value for sub-population correction (also known as theta)
-#' @description For a given number of \emph{independent} alleles, compute the mean and variance of the number of \emph{distinct} alleles observed in a DNA mixture.
-#' @details Due to allele sharing between DNA mixture contributors, the number of \emph{distinct} alleles observed in a mixture is often less than the number of independent alleles in the mixture. For example, if mixture comprises two unrelated contributors, there are four independent alleles. Some of these four independent alleles may be of the same allelic type so that at least one and at most four distinct alleles are observed.
+#' @description For a given number of *independent* alleles, compute the mean and variance of the number of *distinct* alleles observed in a DNA mixture.
+#' @details Due to allele sharing between DNA mixture contributors, the number of *distinct* alleles observed in a mixture is often less than the number of independent alleles in the mixture. For example, if mixture comprises two unrelated contributors, there are four independent alleles. Some of these four independent alleles may be of the same allelic type so that at least one and at most four distinct alleles are observed.
 #'
-#' This function computes the probability distribution of the number of \emph{distinct} alleles observed when the mixtures comprises a given number of \emph{independent} alleles. Optionally, a sub-population correction may be applied by setting \code{fst>0}.
+#' This function computes the probability distribution of the number of *distinct* alleles observed when the mixtures comprises a given number of *independent* alleles. Optionally, a sub-population correction may be applied by setting `fst>0`.
 #'
 #' @examples
 #' f <- c(A = 0.1, B = 0.2, C = 0.7)
@@ -36,10 +36,10 @@ NULL
 #' @param number_of_independent_alleles Integer. Number of independent alleles in the mixture.
 #' @param f Numeric vector with allele frequencies
 #' @param fst Numeric value for sub-population correction (also known as theta)
-#' @description For a given number of \emph{independent} alleles, compute the mean and variance of the number of \emph{distinct} alleles observed in a DNA mixture.
-#' @details Due to allele sharing between DNA mixture contributors, the number of \emph{distinct} alleles observed in a mixture is often less than the number of independent alleles in the mixture. For example, if mixture comprises two unrelated contributors, there are four independent alleles. Some of these four independent alleles may be of the same allelic type so that at least one and at most four distinct alleles are observed.
+#' @description For a given number of *independent* alleles, compute the mean and variance of the number of *distinct* alleles observed in a DNA mixture.
+#' @details Due to allele sharing between DNA mixture contributors, the number of *distinct* alleles observed in a mixture is often less than the number of independent alleles in the mixture. For example, if mixture comprises two unrelated contributors, there are four independent alleles. Some of these four independent alleles may be of the same allelic type so that at least one and at most four distinct alleles are observed.
 #'
-#' This function computes the probability distribution of the number of \emph{distinct} alleles observed when the mixtures comprises a given number of \emph{independent} alleles. Optionally, a sub-population correction may be applied by setting \code{fst>0}.
+#' This function computes the probability distribution of the number of *distinct* alleles observed when the mixtures comprises a given number of *independent* alleles. Optionally, a sub-population correction may be applied by setting `fst>0`.
 #'
 #' @examples
 #' f <- c(A = 0.1, B = 0.2, C = 0.7)

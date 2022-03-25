@@ -2,9 +2,9 @@
 #'
 #' @param dropout_prs Numeric vector. Dropout probabilities per contributor.
 #' @param ped_contributors Character vector with unique names of contributors. Valid names are the names of pedigree members.
-#' @param pedigree \link[pedtools]{ped} object
-#' @description When mixture contributors are related according to a pedigree, they may share some alleles identical by descent so that their total number of \emph{independent} alleles is smaller than two times the number of contributors. The number of \emph{independent} alleles can be further reduced if dropout plays a role. This function computes the probability distribution of the number of independent alleles that related mixture contributors have in total for a locus given their dropout parameters. Note that the number of \emph{distinct} alleles that is observed at the locus is typically smaller than the number of independent alleles due to allele sharing.
-#' @seealso \link{pr_independent_alleles}
+#' @param pedigree [ped][pedtools::ped] object
+#' @description When mixture contributors are related according to a pedigree, they may share some alleles identical by descent so that their total number of *independent* alleles is smaller than two times the number of contributors. The number of *independent* alleles can be further reduced if dropout plays a role. This function computes the probability distribution of the number of independent alleles that related mixture contributors have in total for a locus given their dropout parameters. Note that the number of *distinct* alleles that is observed at the locus is typically smaller than the number of independent alleles due to allele sharing.
+#' @seealso [pr_independent_alleles]
 #' @examples
 #' # without dropout, a father-mother-child mixture has 4 indep. alleles
 #' p <- pr_independent_alleles_ped(pedtools::nuclearPed(),

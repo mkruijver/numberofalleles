@@ -21,10 +21,10 @@ Read allele frequencies in FSIgen format (.csv)
 }
 \details{
 Reads allele frequencies from a .csv file. The file should be in FSIgen format, i.e.
-         comma separated with the first column specifying the allele labels and
-         one column per locus. The last row should be the number of observations.
-         No error checking is done since the file format is only loosely defined,
-         e.g. we do not restrict the first column name or the last row name.
+comma separated with the first column specifying the allele labels and
+one column per locus. The last row should be the number of observations.
+No error checking is done since the file format is only loosely defined,
+e.g. we do not restrict the first column name or the last row name.
 }
 \examples{
 # below we read an allele freqs file that comes with the package

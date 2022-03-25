@@ -4,12 +4,12 @@
 #' @param f Numeric vector with allele frequencies
 #' @param fst Numeric value for sub-population correction (also known as theta)
 #' @param brute_force Logical. Should a brute force algorithm be used?
-#' @description For a given number of \emph{independent} alleles, compute the probability distribution of the number of \emph{distinct} alleles observed in a DNA mixture.
-#' @details Due to allele sharing between DNA mixture contributors, the number of \emph{distinct} alleles observed in a mixture is often less than the number of independent alleles in the mixture. For example, if mixture comprises two unrelated contributors, there are four independent alleles. Some of these four independent alleles may be of the same allelic type so that at least one and at most four distinct alleles are observed.
+#' @description For a given number of *independent* alleles, compute the probability distribution of the number of *distinct* alleles observed in a DNA mixture.
+#' @details Due to allele sharing between DNA mixture contributors, the number of *distinct* alleles observed in a mixture is often less than the number of independent alleles in the mixture. For example, if mixture comprises two unrelated contributors, there are four independent alleles. Some of these four independent alleles may be of the same allelic type so that at least one and at most four distinct alleles are observed.
 #'
-#' This function computes the probability distribution of the number of \emph{distinct} alleles observed when the mixtures comprises a given number of \emph{independent} alleles. Optionally, a sub-population correction may be applied by setting \code{fst>0}.
+#' This function computes the probability distribution of the number of *distinct* alleles observed when the mixtures comprises a given number of *independent* alleles. Optionally, a sub-population correction may be applied by setting `fst>0`.
 #'
-#' An efficient way of computing the probability distribution was given by Tvedebrink (2014) and was slightly adapted by Kruijver & Curran (2022) to handle the case of an odd number of independent alleles. A much slower brute force algorithm is also implemented (argument \code{brute_force=TRUE}) for testing purposes.
+#' An efficient way of computing the probability distribution was given by Tvedebrink (2014) and was slightly adapted by Kruijver & Curran (2022) to handle the case of an odd number of independent alleles. A much slower brute force algorithm is also implemented (argument `brute_force=TRUE`) for testing purposes.
 #' @examples
 #' f <- c(A = 0.1, B = 0.2, C = 0.7)
 #'

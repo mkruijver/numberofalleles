@@ -18,7 +18,7 @@ pr_total_number_of_distinct_alleles(
 
 \item{freqs}{Allele frequencies (see \link{read_allele_freqs})}
 
-\item{pedigree}{(optionally) \link[pedtools]{ped} object}
+\item{pedigree}{(optionally) \link[pedtools:ped]{ped} object}
 
 \item{dropout_prs}{Numeric vector. Dropout probabilities per contributor. Defaults to zeroes.}
 
@@ -32,7 +32,7 @@ Compute the probability distribution of total number of distinct alleles in a DN
 \details{
 A DNA mixture of \eqn{n} contributors contains \eqn{2n} \emph{independent} alleles per locus if the contributors are unrelated; fewer if they are related. This function computes the probability distribution of the total number of \emph{distinct} alleles observed across all loci. Mixture contributors may be related according to an optionally specified pedigree. Optionally, a sub-population correction may be applied by setting \code{fst>0}.
 
-The case where all contributors are unrelated was discussed by Tvedebrink (2014) and is implemented in the \code{DNAtools} package. Kruijver & Curran (2022) extended this to include related contributors by exploiting the \link[ribd]{multiPersonIBD} function in the \code{ribd} package.
+The case where all contributors are unrelated was discussed by Tvedebrink (2014) and is implemented in the \code{DNAtools} package. Kruijver & Curran (2022) extended this to include related contributors by exploiting the \link[ribd:multiPersonIBD]{multiPersonIBD} function in the \code{ribd} package.
 }
 \examples{
 # define a pedigree of siblings S1 and S2 (and their parents)
@@ -66,5 +66,5 @@ contributors', manuscript submitted
 
 T. Tvedebrink (2014). 'On the exact distribution of the number of
 alleles in DNA mixtures', International Journal of Legal Medicine; 128(3):427--37.
-<https://doi.org/10.1007/s00414-013-0951-3>
+\url{https://doi.org/10.1007/s00414-013-0951-3}
 }
