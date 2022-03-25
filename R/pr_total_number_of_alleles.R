@@ -8,7 +8,8 @@
 #' @param loci Character vector of locus names (defaults to names attr. of `freqs`)
 #' @details A DNA mixture of \eqn{n} contributors contains \eqn{2n} *independent* alleles per locus if the contributors are unrelated; fewer if they are related. This function computes the probability distribution of the total number of *distinct* alleles observed across all loci. Mixture contributors may be related according to an optionally specified pedigree. Optionally, a sub-population correction may be applied by setting `fst>0`.
 #'
-#'The case where all contributors are unrelated was discussed by Tvedebrink (2014) and is implemented in the `DNAtools` package. Kruijver & Curran (2022) extended this to include related contributors by exploiting the [multiPersonIBD][ribd::multiPersonIBD] function in the `ribd` package.
+#' The case where all contributors are unrelated was discussed by Tvedebrink (2014) and is implemented in the `DNAtools` package. Kruijver & Curran (2022)
+#' extended this to include related contributors by exploiting the [multiPersonIBD][ribd::multiPersonIBD] function in the `ribd` package.
 #'
 #' @examples
 #' # define a pedigree of siblings S1 and S2 (and their parents)
@@ -178,5 +179,12 @@ pr_total_number_of_distinct_alleles <-
   }
 
   # sum across loci to obtain result
-  compute_pr_of_sum(pr_by_locus)
+  results = list(pf = compute_pr_of_sum(pr_by_locus))
+  results$noa = as.numeric(names(results$pf))
+  results$min = min(results$noa)
+  results$max = max(results$noa)
+
+  class(results) = "pf"
+
+  return(results)
 }

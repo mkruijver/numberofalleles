@@ -32,7 +32,8 @@ Compute the probability distribution of total number of distinct alleles in a DN
 \details{
 A DNA mixture of \eqn{n} contributors contains \eqn{2n} \emph{independent} alleles per locus if the contributors are unrelated; fewer if they are related. This function computes the probability distribution of the total number of \emph{distinct} alleles observed across all loci. Mixture contributors may be related according to an optionally specified pedigree. Optionally, a sub-population correction may be applied by setting \code{fst>0}.
 
-The case where all contributors are unrelated was discussed by Tvedebrink (2014) and is implemented in the \code{DNAtools} package. Kruijver & Curran (2022) extended this to include related contributors by exploiting the \link[ribd:multiPersonIBD]{multiPersonIBD} function in the \code{ribd} package.
+The case where all contributors are unrelated was discussed by Tvedebrink (2014) and is implemented in the \code{DNAtools} package. Kruijver & Curran (2022)
+extended this to include related contributors by exploiting the \link[ribd:multiPersonIBD]{multiPersonIBD} function in the \code{ribd} package.
 }
 \examples{
 # define a pedigree of siblings S1 and S2 (and their parents)
