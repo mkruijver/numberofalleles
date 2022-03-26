@@ -180,6 +180,7 @@ pr_total_number_of_distinct_alleles <-
 
   # sum across loci to obtain result
   results = list(pf = compute_pr_of_sum(pr_by_locus))
+  results$byLocus = pr_by_locus
   results$noa = as.numeric(names(results$pf))
   results$min = min(results$noa)
   results$max = max(results$noa)

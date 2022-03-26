@@ -4,12 +4,12 @@
 \alias{plot.pf}
 \title{Plot method for objects of class pf}
 \usage{
-\method{plot}{pf}(x, ...)
+\method{plot}{pf}(x, plot.lines = TRUE, plot.points = TRUE, ...)
 }
 \arguments{
 \item{x}{An object of class pf}
 
-\item{...}{Any other arguments that should be sent to barplot}
+\item{...}{Any other arguments that should be sent to \codeP}
 }
 \description{
 Plot method for objects of class pf
