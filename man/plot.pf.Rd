@@ -4,12 +4,34 @@
 \alias{plot.pf}
 \title{Plot method for objects of class pf}
 \usage{
-\method{plot}{pf}(x, plot.lines = TRUE, plot.points = TRUE, ...)
+\method{plot}{pf}(
+  x,
+  plot.lines = TRUE,
+  plot.points = TRUE,
+  line.col = "black",
+  point.col = "black",
+  add = FALSE,
+  ...
+)
 }
 \arguments{
 \item{x}{An object of class pf}
 
-\item{...}{Any other arguments that should be sent to \codeP}
+\item{plot.lines}{if \code{TRUE} then lines will be drawn from 0 to the
+probability value for each x value.}
+
+\item{plot.points}{if \code{TRUE} then points will be plotted at the
+probability value for each x value.}
+
+\item{line.col}{the colour of the lines drawn for each probability mass}
+
+\item{point.col}{the colour of the points plotted for each probability mass}
+
+\item{add}{If \code{TRUE} then the plotting information will be added to
+the existing plot.}
+
+\item{...}{Any other arguments that should be sent to \code{plot},
+\code{arrows}, or \code{points}.}
 }
 \description{
 Plot method for objects of class pf
