@@ -1,6 +1,6 @@
 #' Mean method for objects of class pf
 #'
-#' @param x
+#' @param x Object of class \code{pf}: output of [pr_total_number_of_distinct_alleles]
 #' @param bylocus If \code{TRUE} then the results will be returned locus by locus
 #' @param ... other arguments that may p
 #'
@@ -9,6 +9,11 @@
 #' @export
 #'
 #' @examples
+#' data(FBIfreqs)
+#' p <- pr_total_number_of_distinct_alleles(contributors = c("U1","U2"),
+#'                                          freqs = FBIfreqs)
+#' mean(p)
+#' var(p)
 mean.pf = function(x, bylocus = FALSE, ...){
   locusMeans = sapply(x$byLocus, function(loc)sum(loc * as.numeric(names(loc))))
 

@@ -7,6 +7,8 @@
 \method{mean}{pf}(x, bylocus = FALSE, ...)
 }
 \arguments{
+\item{x}{Object of class \code{pf}: output of \link{pr_total_number_of_distinct_alleles}}
+
 \item{bylocus}{If \code{TRUE} then the results will be returned locus by locus}
 
 \item{...}{other arguments that may p}
@@ -17,4 +19,11 @@ The means are the expected number of alleles observed at each locus
 }
 \description{
 Mean method for objects of class pf
+}
+\examples{
+data(FBIfreqs)
+p <- pr_total_number_of_distinct_alleles(contributors = c("U1","U2"),
+                                         freqs = FBIfreqs)
+mean(p)
+var(p)
 }
