@@ -33,7 +33,7 @@ var <- function(x, ...) {
 #' @export
 var.pf = function(x, by_locus = FALSE, ...){
 
-  var_by_locus <- sapply(x$byLocus, function(fx) {
+  var_by_locus <- sapply(x$by_locus, function(fx) {
 
     x <- as.numeric(names(fx))
     mean <- sum(fx * x)
