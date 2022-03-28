@@ -4,12 +4,12 @@
 \alias{mean.pf}
 \title{Mean method for objects of class pf}
 \usage{
-\method{mean}{pf}(x, bylocus = FALSE, ...)
+\method{mean}{pf}(x, by_locus = FALSE, ...)
 }
 \arguments{
 \item{x}{Object of class \code{pf}: output of \link{pr_total_number_of_distinct_alleles}}
 
-\item{bylocus}{If \code{TRUE} then the results will be returned locus by locus}
+\item{by_locus}{If \code{TRUE} then the results will be returned locus by locus}
 
 \item{...}{other arguments that may p}
 }
