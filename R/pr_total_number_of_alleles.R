@@ -35,7 +35,7 @@
 #' p_gf <- pr_total_number_of_distinct_alleles(contributors = c("U1", "U2"),
 #'                                             freqs = freqs, loci = gf_loci)
 #'
-#' barplot(p_gf)
+#' barplot(p_gf$pf)
 #' @references
 #' M. Kruijver & J.Curran (2022). 'The number of alleles in DNA mixtures with related
 #' contributors', manuscript submitted
