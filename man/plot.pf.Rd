@@ -6,10 +6,12 @@
 \usage{
 \method{plot}{pf}(
   x,
-  plot.lines = TRUE,
-  plot.points = TRUE,
-  line.col = "black",
-  point.col = "black",
+  lines = TRUE,
+  points = TRUE,
+  line_col = "black",
+  point_col = "black",
+  xlab = "Number of alleles (n)",
+  ylab = expression(Pr(N == n)),
   add = FALSE,
   ...
 )
@@ -17,15 +19,19 @@
 \arguments{
 \item{x}{An object of class pf}
 
-\item{plot.lines}{if \code{TRUE} then lines will be drawn from 0 to the
+\item{lines}{if \code{TRUE} then lines will be drawn from 0 to the
 probability value for each x value.}
 
-\item{plot.points}{if \code{TRUE} then points will be plotted at the
+\item{points}{if \code{TRUE} then points will be plotted at the
 probability value for each x value.}
 
-\item{line.col}{the colour of the lines drawn for each probability mass}
+\item{line_col}{the colour of the lines drawn for each probability mass}
 
-\item{point.col}{the colour of the points plotted for each probability mass}
+\item{point_col}{the colour of the points plotted for each probability mass}
+
+\item{xlab}{a label for the x axis, defaults to \code{"Number of alleles (n)"}}
+
+\item{ylab}{a label for the y axis, defaults to \code{expression(Pr(N == n))}}
 
 \item{add}{If \code{TRUE} then the plotting information will be added to
 the existing plot.}
@@ -38,21 +44,33 @@ Plot method for objects of class pf
 }
 \examples{
 
-## Load some data
-data("FBIfreqs")
+## Load allele frequencies
+data(FBIfreqs)
+
+gf_loci <- c("D3S1358", "vWA", "D16S539", "CSF1PO", "TPOX", "D8S1179",
+            "D21S11",  "D18S51", "D2S441", "D19S433", "TH01", "FGA",
+            "D22S1045", "D5S818", "D13S317", "D7S820", "SE33",
+            "D10S1248", "D1S1656", "D12S391", "D2S1338")
+
+gf_freqs <- FBIfreqs[gf_loci]
 
 ## Compute the pedigrees for two and three siblings respectively
-pedSibs2 = pedtools::nuclearPed(father = "F", mother = "M", children = c("S1", "S2"))
-pedSibs3 = pedtools::addChildren(father = "F", mother = "M", pedSibs2, ids = "S3")
+pedSibs2 = pedtools::nuclearPed(father = "F", mother = "M",
+                                children = c("S1", "S2"))
+pedSibs3 = pedtools::addChildren(father = "F", mother = "M",
+                                 pedSibs2, ids = "S3")
 
 ## Compute the probability functions for each of 2 Unknowns, and 2 Sibs
-p2U = pr_total_number_of_distinct_alleles(contributors = c("U1", "U2"), freqs = FBIfreqs)
-p2S =  pr_total_number_of_distinct_alleles(contributors = c("S1", "S2"), freqs = FBIfreqs, pedigree = pedSibs2)
+p2U = pr_total_number_of_distinct_alleles(contributors = c("U1", "U2"),
+                                          freqs = gf_freqs)
+p2S =  pr_total_number_of_distinct_alleles(contributors = c("S1", "S2"),
+                                           freqs = gf_freqs,
+                                           pedigree = pedSibs2)
 
 ## And plot the two probability distribution functions on top of each other
 plot(p2U,
-     line.col = "red",
-     point.col = "red",
+     line_col = "red",
+     point_col = "red",
      pch = 18,
      lwd = 2,
      ylim = c(0, 0.15),
@@ -61,17 +79,19 @@ plot(p2U,
 
 plot(p2S,
      add = TRUE,
-     point.col = "blue",
-     line.col = "blue",
+     point_col = "blue",
+     line_col = "blue",
      lwd = 2)
 
 legend("topleft", legend = c("2 U", "2 S"), fill = c("red", "blue"), bty = "n")
 
-## Compute the LR for the number of peaks given the number of contributors and the pedigrees
+## Compute the LR for the number of peaks given the
+#  number of contributors and the pedigrees
 lr = p2U$pf / p2S$pf
 data.df = data.frame(log10lr = log10(lr), noa = p2U$noa)
 
-## Plot the LR and a grid so that it's easy to see where the LR becomes greater than 1
+## Plot the LR and a grid so that it's easy to see where
+#  the LR becomes greater than 1
 plot(log10lr~noa,
      data = data.df,
      axes = FALSE,
@@ -99,28 +119,33 @@ box()
 
 ## Let's look at 2 sibs versus 3 sibs
 
-p3S =  pr_total_number_of_distinct_alleles(contributors = c("S1", "S2", "S3"), freqs = FBIfreqs, pedigree = pedSibs3)
+p3S = pr_total_number_of_distinct_alleles(contributors = c("S1", "S2", "S3"),
+                                          freqs = gf_freqs,
+                                          pedigree = pedSibs3)
 plot(p3S,
-     line.col = "green",
-     point.col = "green",
+     line_col = "green",
+     point_col = "green",
      pch = 18,
      lwd = 2,
      ylim = c(0, 0.15),
      xlab = "Total Number of Alleles (TAC)",
      ylab = expression(Pr(N == n~"|"~M == m, P)))
+
 plot(p2S,
      add = TRUE,
      pch = 18,
-     point.col = "blue",
-     line.col = "blue",
+     point_col = "blue",
+     line_col = "blue",
      lwd = 2)
 legend("topleft", legend = c("3 S", "2 S"), fill = c("green", "blue"), bty = "n")
 
 ## And finally two sibs and one unknown versus three sibs
-p2SU =  pr_total_number_of_distinct_alleles(contributors = c("S1", "S2", "U1"), freqs = FBIfreqs, pedigree = pedSibs2)
+p2SU = pr_total_number_of_distinct_alleles(contributors = c("S1", "S2", "U1"),
+                                           freqs = gf_freqs,
+                                           pedigree = pedSibs2)
 plot(p3S,
-     line.col = "green",
-     point.col = "green",
+     line_col = "green",
+     point_col = "green",
      pch = 18,
      lwd = 2,
      ylim = c(0, 0.15),
@@ -129,8 +154,9 @@ plot(p3S,
 plot(p2SU,
      add = TRUE,
      pch = 18,
-     point.col = "orange",
-     line.col = "orange",
+     point_col = "orange",
+     line_col = "orange",
      lwd = 2)
-legend("topleft", legend = c("3 S", "2 S + U"), fill = c("green", "orange"), bty = "n")
+legend("topleft", legend = c("3 S", "2 S + U"),
+       fill = c("green", "orange"), bty = "n")
 }

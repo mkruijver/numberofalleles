@@ -43,9 +43,9 @@ for (i in 1:6){
   p <- pr_total_number_of_distinct_alleles(contributors = paste0("U", seq(i)), 
                                            freqs = freqs, loci = gf_loci)
   
-  p_by_n[[i]] <- data.frame(n=factor(i),
-             number_of_alleles = as.integer(names(p)),
-             p = as.vector(p))
+  p_by_n[[i]] <- data.frame(n = factor(i),
+             number_of_alleles = p$noa,
+             p = p$pf)
 }
 ```
 We use **ggplot2** to plot the curves.
