@@ -46,7 +46,7 @@
 #'      lwd = 2,
 #'      ylim = c(0, 0.15),
 #'      xlab = "Total Number of Alleles (TAC)",
-#'      ylab = expression(Pr(N == n~"|"~M == m, P)))
+#'      ylab = expression(Pr(N == n~"|"~ P)))
 #'
 #' plot(p2S,
 #'      add = TRUE,
@@ -67,7 +67,7 @@
 #'      data = data.df,
 #'      axes = FALSE,
 #'      xlab = "Total number of alleles, n",
-#'      ylab = expression(log[10](LR(P[1],P[2]~"|"~N==n, M==m))),
+#'      ylab = expression(log[10](LR(P[1],P[2]~"|"~N==n))),
 #'      xaxs = "i", yaxs = "i",
 #'      xlim = c(22,93),
 #'      pch = 18)
@@ -100,7 +100,7 @@
 #'      lwd = 2,
 #'      ylim = c(0, 0.15),
 #'      xlab = "Total Number of Alleles (TAC)",
-#'      ylab = expression(Pr(N == n~"|"~M == m, P)))
+#'      ylab = expression(Pr(N == n~"|"~ P)))
 #'
 #' plot(p2S,
 #'      add = TRUE,
@@ -121,7 +121,7 @@
 #'      lwd = 2,
 #'      ylim = c(0, 0.15),
 #'      xlab = "Total Number of Alleles (TAC)",
-#'      ylab = expression(Pr(N == n~"|"~M == m, P)))
+#'      ylab = expression(Pr(N == n~"|"~ P)))
 #' plot(p2SU,
 #'      add = TRUE,
 #'      pch = 18,
