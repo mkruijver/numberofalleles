@@ -1,8 +1,8 @@
 Package: numberofalleles
 Type: Package
 Title: Compute the Probability Distribution of the Number of Alleles in a DNA Mixture
-Version: 0.1
-Date: 2022-03-21
+Version: 1.0
+Date: 2022-04-22
 Authors@R: 
     c(person("Maarten", "Kruijver", , "maarten.kruijver@esr.cri.nz", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-6890-7632")),
