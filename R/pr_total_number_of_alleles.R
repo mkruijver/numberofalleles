@@ -42,7 +42,7 @@
 #'
 #' T. Tvedebrink (2014). 'On the exact distribution of the number of
 #' alleles in DNA mixtures', International Journal of Legal Medicine; 128(3):427--37.
-#' <https://doi.org/10.1007/s00414-013-0951-3>
+#' \doi{10.1007/s00414-013-0951-3}
 #' @export
 pr_total_number_of_distinct_alleles <-
   function(contributors, freqs, pedigree,
