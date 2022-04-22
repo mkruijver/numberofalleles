@@ -1,11 +1,11 @@
 citHeader("To cite numberofalleles in publications use:")
 
 citEntry(
-  entry    = "Manual",
-  title    = 'numberofalleles: Number of alleles in a DNA mixture",
-  author   = 'Kruijver, M. K. and Curran, J. M.',
+  entry    = 'Manual',
+  title    = 'numberofalleles: Number of alleles in a DNA mixture',
+  author   = 'Kruijver, M. and Curran, J. M.',
   year     = '2022',
-  note   = 'R package version 0.1',
-  textVersion = paste(" M. K. Kruijver and J. M. Curran (2022) numberofalleles: Number of alleles in a DNA mixture. R package version 0.1"
+  note   = 'R package version 1.0',
+  textVersion = paste(" M. Kruijver and J. M. Curran (2022) numberofalleles: Number of alleles in a DNA mixture. R package version 0.1"
   )
 )
