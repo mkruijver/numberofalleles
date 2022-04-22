@@ -49,7 +49,7 @@ pr_independent_alleles_ped <- function(pedigree, ped_contributors,
   # enumerate, for each person, the possible indep. alleles that are
   # dropped/not dropped out and their probs
   # there are 4 possibilities for each state: both drop, 1 drop (2x) and no drop
-  drop_IBD_by_person <- setNames(
+  drop_IBD_by_person <- stats::setNames(
     sapply(seq_along(ped_contributors), function(i_contributor){
       prepare_drop_IBD(multi_person_IBD,
                        person_name = ped_contributors[i_contributor],

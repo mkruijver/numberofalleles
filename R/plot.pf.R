@@ -152,12 +152,12 @@ plot.pf = function(x,
            ...)
 
   if(lines)
-    arrows(x0 = xVals,
-           x1 = xVals,
-           y0 = rep(0, length(yVals)),
-           y1 = yVals,
-           length = 0, ## No head
-           col = line_col,
-           ...
+    graphics::arrows(x0 = xVals,
+                     x1 = xVals,
+                     y0 = rep(0, length(yVals)),
+                     y1 = yVals,
+                     length = 0, ## No head
+                     col = line_col,
+                     ...
     )
 }

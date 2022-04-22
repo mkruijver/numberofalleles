@@ -11,7 +11,7 @@ Authors@R:
 Description: The number of distinct alleles observed in a DNA mixture is informative of the number of contributors to the mixture. The package provides methods for computing the probability distribution of the number of distinct alleles in a mixture for a given set of allele frequencies. The mixture contributors may be related according to a provided pedigree.
 License: GPL (>= 2)
 Encoding: UTF-8
-Imports: Rcpp (>= 1.0.7), pedtools, ribd, partitions
+Imports: Rcpp (>= 1.0.7), pedtools, ribd, partitions, methods
 LinkingTo: Rcpp
 RoxygenNote: 7.1.2
 Suggests: 
