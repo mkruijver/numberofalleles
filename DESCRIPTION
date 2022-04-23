@@ -2,7 +2,7 @@ Package: numberofalleles
 Type: Package
 Title: Compute the Probability Distribution of the Number of Alleles in a DNA Mixture
 Version: 1.0
-Date: 2022-04-22
+Date: 2022-04-23
 Authors@R: 
     c(person("Maarten", "Kruijver", , "maarten.kruijver@esr.cri.nz", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-6890-7632")),
@@ -17,7 +17,8 @@ RoxygenNote: 7.1.2
 Suggests: 
     rmarkdown,
     knitr,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    ggplot2
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 Roxygen: list(markdown = TRUE)
