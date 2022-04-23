@@ -45,14 +45,15 @@ Plot method for objects of class pf
 \examples{
 
 ## Load allele frequencies
-data(FBIfreqs)
+freqs <- read_allele_freqs(system.file("extdata","FBI_extended_Cauc.csv",
+                            package = "numberofalleles"))
 
 gf_loci <- c("D3S1358", "vWA", "D16S539", "CSF1PO", "TPOX", "D8S1179",
             "D21S11",  "D18S51", "D2S441", "D19S433", "TH01", "FGA",
             "D22S1045", "D5S818", "D13S317", "D7S820", "SE33",
             "D10S1248", "D1S1656", "D12S391", "D2S1338")
 
-gf_freqs <- FBIfreqs[gf_loci]
+gf_freqs <- freqs[gf_loci]
 
 ## Compute the pedigrees for two and three siblings respectively
 pedSibs2 = pedtools::nuclearPed(father = "F", mother = "M",

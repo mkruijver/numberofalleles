@@ -21,9 +21,10 @@ The means are the expected number of alleles observed at each locus
 Mean method for objects of class pf
 }
 \examples{
-data(FBIfreqs)
+freqs <- read_allele_freqs(system.file("extdata","FBI_extended_Cauc.csv",
+                           package = "numberofalleles"))
 p <- pr_total_number_of_distinct_alleles(contributors = c("U1","U2"),
-                                         freqs = FBIfreqs)
+                                         freqs = freqs)
 mean(p)
 var(p)
 }
