@@ -172,7 +172,7 @@ double S_recursive(NumericVector f, IntegerVector alpha, double fst) {
 
   if (alpha.size() > f.size()) return 0.;
 
-  if (abs(fst) == 0){
+  if (std::abs(fst) == 0){
     return S_recursive_hw(f, alpha);
   }
   else{
