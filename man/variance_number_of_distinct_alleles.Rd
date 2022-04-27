@@ -13,6 +13,9 @@ variance_number_of_distinct_alleles(number_of_independent_alleles, f, fst = 0)
 
 \item{fst}{Numeric value for sub-population correction (also known as theta)}
 }
+\value{
+Variance (numeric of length one)
+}
 \description{
 For a given number of \emph{independent} alleles, compute the mean and variance of the number of \emph{distinct} alleles observed in a DNA mixture.
 }

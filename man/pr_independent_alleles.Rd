@@ -9,6 +9,9 @@ pr_independent_alleles(dropout_prs)
 \arguments{
 \item{dropout_prs}{Numeric vector. Dropout probabilities per contributor.}
 }
+\value{
+A named numeric vector describing the probability distribution. Numeric values are the probabilities corresponding to the names describing integer values.
+}
 \description{
 Without dropout, each mixture contributor has two \emph{independent} but not necessarily \emph{distinct} alleles that are represented in the DNA mixture. If the probability of dropout for a mixture contributor is greater than zero, then the mixture contributor has either 0 (full dropout), 1 (partial dropout) or 2 (no dropout) independent alleles that are represented in the mixture. This function computes the probability distribution of the number of independent alleles that unrelated mixture contributors have in total for a locus given their dropout parameters.
 }

@@ -11,6 +11,13 @@
 #' The case where all contributors are unrelated was discussed by Tvedebrink (2014) and is implemented in the `DNAtools` package. Kruijver & Curran (2022)
 #' extended this to include related contributors by exploiting the [multiPersonIBD][ribd::multiPersonIBD] function in the `ribd` package.
 #'
+#' @returns an object of class \code{pf}. This is a list containing: \itemize{
+#'  \item pf. A named numeric vector describing the probability distribution of the total number of alleles. Numeric values are the probabilities corresponding to the names describing integer values.
+#'  \item by_locus. A list of probability distributions by locus.
+#'  \item noa. For convenience, an integer vector with the number of alleles corresponding to the probability distribution pf (the names attribute as integer vector)
+#'  \item min. For convenience, the minimum of \code{noa}
+#'  \item max. For convenience, the maximum of \code{noa}
+#' }
 #' @examples
 #' # define a pedigree of siblings S1 and S2 (and their parents)
 #' ped_sibs <- pedtools::nuclearPed(children = c("S1", "S2"))
@@ -36,6 +43,7 @@
 #'                                             freqs = freqs, loci = gf_loci)
 #'
 #' barplot(p_gf$pf)
+#'
 #' @references
 #' M. Kruijver & J.Curran (2022). 'The number of alleles in DNA mixtures with related
 #' contributors', manuscript submitted

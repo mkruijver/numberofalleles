@@ -13,6 +13,9 @@ expected_number_of_distinct_alleles(number_of_independent_alleles, f, fst = 0)
 
 \item{fst}{Numeric value for sub-population correction (also known as theta)}
 }
+\value{
+Expected value (numeric of length one)
+}
 \description{
 For a given number of \emph{independent} alleles, compute the mean and variance of the number of \emph{distinct} alleles observed in a DNA mixture.
 }
@@ -24,7 +27,11 @@ This function computes the probability distribution of the number of \emph{disti
 \examples{
 f <- c(A = 0.1, B = 0.2, C = 0.7)
 
+e <- expected_number_of_distinct_alleles(3, f)
+
+# by hand calculation
 p <- pr_number_of_distinct_alleles(3, f)
-p_by_hand <- c(sum(f^3), 1 - sum(f^3) - 6 * prod(f), 6 * prod(f))
-stopifnot(all.equal(as.vector(p), p_by_hand))
+e_by_hand <- sum(as.numeric(names(p)) * p)
+
+stopifnot(isTRUE(all.equal(e, e_by_hand)))
 }

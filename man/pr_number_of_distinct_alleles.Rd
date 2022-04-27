@@ -20,6 +20,9 @@ pr_number_of_distinct_alleles(
 
 \item{brute_force}{Logical. Should a brute force algorithm be used?}
 }
+\value{
+A named numeric vector describing the probability distribution. Numeric values are the probabilities corresponding to the names describing integer values.
+}
 \description{
 For a given number of \emph{independent} alleles, compute the probability distribution of the number of \emph{distinct} alleles observed in a DNA mixture.
 }

@@ -10,6 +10,7 @@
 #' This function computes the probability distribution of the number of *distinct* alleles observed when the mixtures comprises a given number of *independent* alleles. Optionally, a sub-population correction may be applied by setting `fst>0`.
 #'
 #' An efficient way of computing the probability distribution was given by Tvedebrink (2014) and was slightly adapted by Kruijver & Curran (2022) to handle the case of an odd number of independent alleles. A much slower brute force algorithm is also implemented (argument `brute_force=TRUE`) for testing purposes.
+#' @returns A named numeric vector describing the probability distribution. Numeric values are the probabilities corresponding to the names describing integer values.
 #' @examples
 #' f <- c(A = 0.1, B = 0.2, C = 0.7)
 #'

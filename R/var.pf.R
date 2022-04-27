@@ -4,7 +4,7 @@
 #' @param by_locus If \code{TRUE} then the results will be returned locus by locus
 #' @param ... other arguments that may p
 #'
-#' @return Either a vector of variances, one for each locus, or the sum of the locus variances.
+#' @returns Either a vector of variances, one for each locus, or the sum of the locus variances.
 #' The variances are the variances of the number of alleles observed at each locus.
 #' @rdname var
 #'

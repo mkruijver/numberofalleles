@@ -13,6 +13,7 @@
 #' \code{arrows}, or \code{points}.
 #' @param add If \code{TRUE} then the plotting information will be added to
 #' the existing plot.
+#' @returns No return value. Has the side effect of plotting to the active graphics device.
 #' @examples
 #'
 #' ## Load allele frequencies

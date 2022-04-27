@@ -4,7 +4,7 @@
 #' @param by_locus If \code{TRUE} then the results will be returned locus by locus
 #' @param ... other arguments that may p
 #'
-#' @return either a vector of means, one for each locus, or the sum of the locus means.
+#' @returns either a vector of means, one for each locus, or the sum of the locus means.
 #' The means are the expected number of alleles observed at each locus
 #' @export
 #'

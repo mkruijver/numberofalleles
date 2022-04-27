@@ -39,6 +39,9 @@ the existing plot.}
 \item{...}{Any other arguments that should be sent to \code{plot},
 \code{arrows}, or \code{points}.}
 }
+\value{
+No return value. Has the side effect of plotting to the active graphics device.
+}
 \description{
 Plot method for objects of class pf
 }
