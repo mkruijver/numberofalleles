@@ -13,8 +13,44 @@ S_recursive <- function(f, alpha, fst) {
     .Call('_numberofalleles_S_recursive', PACKAGE = 'numberofalleles', f, alpha, fst)
 }
 
+pr_mixture_given_n_independent_alleles <- function(number_of_independent_alleles, theta, R, f) {
+    .Call('_numberofalleles_pr_mixture_given_n_independent_alleles', PACKAGE = 'numberofalleles', number_of_independent_alleles, theta, R, f)
+}
+
+pr_mixtures_given_n_independent_alleles <- function(number_of_independent_alleles, theta, mixtures, f) {
+    .Call('_numberofalleles_pr_mixtures_given_n_independent_alleles', PACKAGE = 'numberofalleles', number_of_independent_alleles, theta, mixtures, f)
+}
+
+pr_k_allele_mixtures_given_n_independent_alleles <- function(number_of_independent_alleles, x, f) {
+    .Call('_numberofalleles_pr_k_allele_mixtures_given_n_independent_alleles', PACKAGE = 'numberofalleles', number_of_independent_alleles, x, f)
+}
+
 pr_sum <- function(x1, fx1, x2, fx2) {
     .Call('_numberofalleles_pr_sum', PACKAGE = 'numberofalleles', x1, fx1, x2, fx2)
+}
+
+sample_mixture_masks_number_of_independent_alleles_locus <- function(freqs_locus, number_of_indep_alleles, number_of_samples) {
+    .Call('_numberofalleles_sample_mixture_masks_number_of_independent_alleles_locus', PACKAGE = 'numberofalleles', freqs_locus, number_of_indep_alleles, number_of_samples)
+}
+
+sample_mixture_alleles_locus <- function(freqs_locus, number_of_contributors, number_of_samples) {
+    .Call('_numberofalleles_sample_mixture_alleles_locus', PACKAGE = 'numberofalleles', freqs_locus, number_of_contributors, number_of_samples)
+}
+
+sample_allele_count_locus <- function(freqs_locus, number_of_contributors, number_of_samples) {
+    .Call('_numberofalleles_sample_allele_count_locus', PACKAGE = 'numberofalleles', freqs_locus, number_of_contributors, number_of_samples)
+}
+
+sample_allele_count_num_indep_alleles_locus <- function(freqs_locus, number_of_indep_alleles, number_of_samples) {
+    .Call('_numberofalleles_sample_allele_count_num_indep_alleles_locus', PACKAGE = 'numberofalleles', freqs_locus, number_of_indep_alleles, number_of_samples)
+}
+
+sample_k_allele_mixtures_brute_force <- function(freqs_locus, number_of_alleles, number_of_samples) {
+    .Call('_numberofalleles_sample_k_allele_mixtures_brute_force', PACKAGE = 'numberofalleles', freqs_locus, number_of_alleles, number_of_samples)
+}
+
+sample_k_allele_mixtures <- function(freqs_locus, number_of_alleles, number_of_samples) {
+    .Call('_numberofalleles_sample_k_allele_mixtures', PACKAGE = 'numberofalleles', freqs_locus, number_of_alleles, number_of_samples)
 }
 
 weights_cpp <- function(x) {

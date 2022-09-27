@@ -3,6 +3,7 @@
 S3method(mean,pf)
 S3method(plot,pf)
 S3method(var,pf)
+export(estimate_pr_number_of_distinct_alleles)
 export(expected_number_of_distinct_alleles)
 export(pr_independent_alleles)
 export(pr_independent_alleles_ped)
