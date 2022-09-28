@@ -158,6 +158,14 @@ IntegerVector r_sample_int(NumericVector pr, int number_of_samples, bool replace
                     _["prob"] = pr);
 }
 
+IntegerVector r_sample_int_uniform(int n, int number_of_samples, bool replace){
+  Function sample_int("sample.int");
+
+  return sample_int(_["n"] = n,
+                    _["size"] = number_of_samples,
+                    _["replace"] = replace);
+}
+
 std::vector<uint64_t> sample_mixture_masks_locus(NumericVector freqs_locus, int number_of_contributors, int number_of_samples) {
 
   IntegerMatrix g = enumerate_genotypes(freqs_locus.size());
@@ -263,6 +271,49 @@ IntegerMatrix sample_k_allele_mixtures(NumericVector freqs_locus, int number_of_
       if (i_sampled_allele == sampled_alleles.size()){
         // need a new batch
         sampled_alleles = r_sample_int(freqs_locus, number_of_samples, true);
+
+        i_sampled_allele = 0;
+      }
+
+      // pop a sampled allele out of the batch
+      int allele = sampled_alleles[i_sampled_allele] - 1;
+      i_sampled_allele++;
+
+      uint64_t allele_mask = ((uint64_t) 1) << allele;
+
+      if ((sample_mask & allele_mask) == 0){
+        samples(number_sampled, i_sample) = allele + 1;
+        number_sampled++;
+      }
+
+
+            sample_mask |= allele_mask;
+    }
+
+  }
+
+  return samples;
+}
+
+// [[Rcpp::export]]
+IntegerMatrix sample_k_allele_mixtures_uniform(NumericVector freqs_locus, int number_of_alleles, int number_of_samples){
+
+  // this is the first batch of alleles used in a rejection sampling scheme
+  IntegerVector sampled_alleles = r_sample_int_uniform(freqs_locus.size(), number_of_samples, true);
+
+  IntegerMatrix samples(number_of_alleles, number_of_samples);
+
+  int i_sampled_allele = 0;
+  for (int i_sample = 0; i_sample < number_of_samples; i_sample++){
+
+    uint64_t sample_mask = 0;
+
+    int number_sampled = 0;
+
+    while (number_sampled != number_of_alleles){
+      if (i_sampled_allele == sampled_alleles.size()){
+        // need a new batch
+        sampled_alleles = sampled_alleles = r_sample_int_uniform(freqs_locus.size(), number_of_samples, true);
 
         i_sampled_allele = 0;
       }

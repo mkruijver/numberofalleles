@@ -21,8 +21,8 @@ pr_mixtures_given_n_independent_alleles <- function(number_of_independent_allele
     .Call('_numberofalleles_pr_mixtures_given_n_independent_alleles', PACKAGE = 'numberofalleles', number_of_independent_alleles, theta, mixtures, f)
 }
 
-pr_k_allele_mixtures_given_n_independent_alleles <- function(number_of_independent_alleles, x, f) {
-    .Call('_numberofalleles_pr_k_allele_mixtures_given_n_independent_alleles', PACKAGE = 'numberofalleles', number_of_independent_alleles, x, f)
+pr_k_allele_mixtures <- function(x, f) {
+    .Call('_numberofalleles_pr_k_allele_mixtures', PACKAGE = 'numberofalleles', x, f)
 }
 
 pr_sum <- function(x1, fx1, x2, fx2) {
@@ -51,6 +51,10 @@ sample_k_allele_mixtures_brute_force <- function(freqs_locus, number_of_alleles,
 
 sample_k_allele_mixtures <- function(freqs_locus, number_of_alleles, number_of_samples) {
     .Call('_numberofalleles_sample_k_allele_mixtures', PACKAGE = 'numberofalleles', freqs_locus, number_of_alleles, number_of_samples)
+}
+
+sample_k_allele_mixtures_uniform <- function(freqs_locus, number_of_alleles, number_of_samples) {
+    .Call('_numberofalleles_sample_k_allele_mixtures_uniform', PACKAGE = 'numberofalleles', freqs_locus, number_of_alleles, number_of_samples)
 }
 
 weights_cpp <- function(x) {

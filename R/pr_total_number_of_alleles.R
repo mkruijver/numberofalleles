@@ -6,6 +6,9 @@
 #' @param dropout_prs Numeric vector. Dropout probabilities per contributor. Defaults to zeroes.
 #' @param fst Numeric. Defaults to 0.
 #' @param loci Character vector of locus names (defaults to names attr. of `freqs`)
+#' @param simulate Logical. Should simulation be used instead of exact calculations?
+#' @param importance_sampling Logical. Should importance sampling be used in any simulations?
+#' @param number_of_samples Integer specifying the number of replicates used in simulations.
 #' @details A DNA mixture of \eqn{n} contributors contains \eqn{2n} *independent* alleles per locus if the contributors are unrelated; fewer if they are related. This function computes the probability distribution of the total number of *distinct* alleles observed across all loci. Mixture contributors may be related according to an optionally specified pedigree. Optionally, a sub-population correction may be applied by setting `fst>0`.
 #'
 #' The case where all contributors are unrelated was discussed by Tvedebrink (2014) and is implemented in the `DNAtools` package. Kruijver & Curran (2022)
@@ -55,7 +58,9 @@
 pr_total_number_of_distinct_alleles <-
   function(contributors, freqs, pedigree,
            dropout_prs = rep(0., length(contributors)),
-           fst = 0, loci = names(freqs)){
+           fst = 0, loci = names(freqs),
+           simulate = FALSE, importance_sampling = TRUE,
+           number_of_samples = 1e5){
 
   if (!is.character(contributors)){
     stop("contributors should be a character vector")
@@ -128,6 +133,14 @@ pr_total_number_of_distinct_alleles <-
     warning("freqs do not sum to 1 at all selected loci")
   }
 
+  if ((length(simulate) != 1)|(!is.logical(simulate))){
+    stop("simulate should be a logical of length one")
+  }
+
+  if ((length(importance_sampling) != 1)|(!is.logical(importance_sampling))){
+    stop("importance_sampling should be a logical of length one")
+  }
+
   # first determine pr. dist. of number of independent alleles
   # for pedigree members and unrelated persons
 
@@ -174,7 +187,13 @@ pr_total_number_of_distinct_alleles <-
       num_indep_alleles <- as.integer(names(pr_num_indep_alleles)[i])
       pr <- pr_num_indep_alleles[i]
 
-      pr_distinct <- pr_number_of_distinct_alleles(num_indep_alleles, f, fst = fst)
+      if (!simulate){
+        pr_distinct <- pr_number_of_distinct_alleles(num_indep_alleles, f, fst = fst)
+      }
+      else{
+        pr_distinct <- estimate_pr_number_of_distinct_alleles(number_of_independent_alleles = num_indep_alleles,
+          f = f, fst = fst, number_of_samples = number_of_samples, importance_sampling = importance_sampling)
+      }
 
       idx <- match(names(pr_distinct), names(pr_locus))
       pr_locus[idx] <- pr_locus[idx] + pr_distinct * pr

@@ -76,16 +76,15 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// pr_k_allele_mixtures_given_n_independent_alleles
-NumericVector pr_k_allele_mixtures_given_n_independent_alleles(int number_of_independent_alleles, IntegerMatrix x, std::vector<double> f);
-RcppExport SEXP _numberofalleles_pr_k_allele_mixtures_given_n_independent_alleles(SEXP number_of_independent_allelesSEXP, SEXP xSEXP, SEXP fSEXP) {
+// pr_k_allele_mixtures
+NumericVector pr_k_allele_mixtures(IntegerMatrix x, std::vector<double> f);
+RcppExport SEXP _numberofalleles_pr_k_allele_mixtures(SEXP xSEXP, SEXP fSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< int >::type number_of_independent_alleles(number_of_independent_allelesSEXP);
     Rcpp::traits::input_parameter< IntegerMatrix >::type x(xSEXP);
     Rcpp::traits::input_parameter< std::vector<double> >::type f(fSEXP);
-    rcpp_result_gen = Rcpp::wrap(pr_k_allele_mixtures_given_n_independent_alleles(number_of_independent_alleles, x, f));
+    rcpp_result_gen = Rcpp::wrap(pr_k_allele_mixtures(x, f));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -181,6 +180,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// sample_k_allele_mixtures_uniform
+IntegerMatrix sample_k_allele_mixtures_uniform(NumericVector freqs_locus, int number_of_alleles, int number_of_samples);
+RcppExport SEXP _numberofalleles_sample_k_allele_mixtures_uniform(SEXP freqs_locusSEXP, SEXP number_of_allelesSEXP, SEXP number_of_samplesSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type freqs_locus(freqs_locusSEXP);
+    Rcpp::traits::input_parameter< int >::type number_of_alleles(number_of_allelesSEXP);
+    Rcpp::traits::input_parameter< int >::type number_of_samples(number_of_samplesSEXP);
+    rcpp_result_gen = Rcpp::wrap(sample_k_allele_mixtures_uniform(freqs_locus, number_of_alleles, number_of_samples));
+    return rcpp_result_gen;
+END_RCPP
+}
 // weights_cpp
 unsigned long long weights_cpp(IntegerVector x);
 RcppExport SEXP _numberofalleles_weights_cpp(SEXP xSEXP) {
@@ -199,7 +211,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_numberofalleles_S_recursive", (DL_FUNC) &_numberofalleles_S_recursive, 3},
     {"_numberofalleles_pr_mixture_given_n_independent_alleles", (DL_FUNC) &_numberofalleles_pr_mixture_given_n_independent_alleles, 4},
     {"_numberofalleles_pr_mixtures_given_n_independent_alleles", (DL_FUNC) &_numberofalleles_pr_mixtures_given_n_independent_alleles, 4},
-    {"_numberofalleles_pr_k_allele_mixtures_given_n_independent_alleles", (DL_FUNC) &_numberofalleles_pr_k_allele_mixtures_given_n_independent_alleles, 3},
+    {"_numberofalleles_pr_k_allele_mixtures", (DL_FUNC) &_numberofalleles_pr_k_allele_mixtures, 2},
     {"_numberofalleles_pr_sum", (DL_FUNC) &_numberofalleles_pr_sum, 4},
     {"_numberofalleles_sample_mixture_masks_number_of_independent_alleles_locus", (DL_FUNC) &_numberofalleles_sample_mixture_masks_number_of_independent_alleles_locus, 3},
     {"_numberofalleles_sample_mixture_alleles_locus", (DL_FUNC) &_numberofalleles_sample_mixture_alleles_locus, 3},
@@ -207,6 +219,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_numberofalleles_sample_allele_count_num_indep_alleles_locus", (DL_FUNC) &_numberofalleles_sample_allele_count_num_indep_alleles_locus, 3},
     {"_numberofalleles_sample_k_allele_mixtures_brute_force", (DL_FUNC) &_numberofalleles_sample_k_allele_mixtures_brute_force, 3},
     {"_numberofalleles_sample_k_allele_mixtures", (DL_FUNC) &_numberofalleles_sample_k_allele_mixtures, 3},
+    {"_numberofalleles_sample_k_allele_mixtures_uniform", (DL_FUNC) &_numberofalleles_sample_k_allele_mixtures_uniform, 3},
     {"_numberofalleles_weights_cpp", (DL_FUNC) &_numberofalleles_weights_cpp, 1},
     {NULL, NULL, 0}
 };

@@ -28,7 +28,36 @@ For a given number of \emph{independent} alleles, estimates the probability dist
 \details{
 Due to allele sharing between DNA mixture contributors, the number of \emph{distinct} alleles observed in a mixture is often less than the number of independent alleles in the mixture. For example, if mixture comprises two unrelated contributors, there are four independent alleles. Some of these four independent alleles may be of the same allelic type so that at least one and at most four distinct alleles are observed.
 
-This function esimates the probability distribution of the number of \emph{distinct} alleles observed when the mixtures comprises a given number of \emph{independent} alleles. Optionally, a sub-population correction may be applied by setting \code{fst>0}.
+This function estimates the probability distribution of the number of \emph{distinct} alleles observed when the mixtures comprises a given number of \emph{independent} alleles. Optionally, a sub-population correction may be applied by setting \code{fst>0}.
 
 The function uses a Monte Carlo estimation procedure.
+}
+\examples{
+
+freqs <- read_allele_freqs(system.file("extdata",
+                                      "FBI_extended_Cauc.csv",
+                                      package = "numberofalleles"))
+
+# compute the exact distribution of distinct alleles for a 5-person mixture at SE33
+p <- pr_number_of_distinct_alleles(number_of_independent_alleles = 10,
+                                  f = freqs$SE33)
+
+plot(seq(p), p, type = "b", log = "y", xlab = "Number of distinct alleles")
+grid()
+
+# next we compare it to a simple Monte Carlo estimate and the Importance Sampling estimate
+set.seed(1)
+p_hat <- estimate_pr_number_of_distinct_alleles(number_of_independent_alleles = 10,
+                                               f = freqs$SE33, number_of_samples = 1e4)
+p_hat_is <- estimate_pr_number_of_distinct_alleles(number_of_independent_alleles = 10,
+                                                  f = freqs$SE33, number_of_samples = 1e4,
+                                                  importance_sampling = TRUE)
+
+# Monte Carlo fails to estimate the tiny probabilities
+# but Importance Sampling is fairly accurate even with only 10k samples
+plot(seq(p), p_hat/p, type="b", lty=2, xlab="Number of distinct alleles")
+lines(p_hat_is/p, type="b")
+grid()
+legend("bottomright", legend=c("Monte Carlo", "Importance Sampling"), lty = c(2,1))
+
 }

@@ -77,7 +77,7 @@ NumericVector pr_mixtures_given_n_independent_alleles(int number_of_independent_
 }
 
 // [[Rcpp::export]]
-NumericVector pr_k_allele_mixtures_given_n_independent_alleles(int number_of_independent_alleles, IntegerMatrix x, std::vector<double> f){
+NumericVector pr_k_allele_mixtures(IntegerMatrix x, std::vector<double> f){
   // computes the pr of observing k-allele mixture ignoring the possibility of dropout / drop-in
   // if the k-allele mixture is sampled according to freqs without replacement
 
@@ -97,7 +97,7 @@ NumericVector pr_k_allele_mixtures_given_n_independent_alleles(int number_of_ind
       f_cum_pr -= f[a];
     }
 
-    prs[i_mixture] = pr * factorials[number_of_independent_alleles];
+    prs[i_mixture] = pr;
   }
 
   return prs;
