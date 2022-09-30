@@ -88,6 +88,30 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// pr_num_distinct_multi_pop
+NumericVector pr_num_distinct_multi_pop(NumericMatrix f, IntegerVector num_indep_by_pop);
+RcppExport SEXP _numberofalleles_pr_num_distinct_multi_pop(SEXP fSEXP, SEXP num_indep_by_popSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericMatrix >::type f(fSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type num_indep_by_pop(num_indep_by_popSEXP);
+    rcpp_result_gen = Rcpp::wrap(pr_num_distinct_multi_pop(f, num_indep_by_pop));
+    return rcpp_result_gen;
+END_RCPP
+}
+// pr_num_distinct_multi_pop2
+List pr_num_distinct_multi_pop2(NumericMatrix f, IntegerVector num_indep_by_pop);
+RcppExport SEXP _numberofalleles_pr_num_distinct_multi_pop2(SEXP fSEXP, SEXP num_indep_by_popSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericMatrix >::type f(fSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type num_indep_by_pop(num_indep_by_popSEXP);
+    rcpp_result_gen = Rcpp::wrap(pr_num_distinct_multi_pop2(f, num_indep_by_pop));
+    return rcpp_result_gen;
+END_RCPP
+}
 // pr_sum
 NumericVector pr_sum(IntegerVector x1, NumericVector fx1, IntegerVector x2, NumericVector fx2);
 RcppExport SEXP _numberofalleles_pr_sum(SEXP x1SEXP, SEXP fx1SEXP, SEXP x2SEXP, SEXP fx2SEXP) {
@@ -99,6 +123,17 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< IntegerVector >::type x2(x2SEXP);
     Rcpp::traits::input_parameter< NumericVector >::type fx2(fx2SEXP);
     rcpp_result_gen = Rcpp::wrap(pr_sum(x1, fx1, x2, fx2));
+    return rcpp_result_gen;
+END_RCPP
+}
+// get_set_bits
+Rcpp::IntegerVector get_set_bits(uint64_t mask);
+RcppExport SEXP _numberofalleles_get_set_bits(SEXP maskSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< uint64_t >::type mask(maskSEXP);
+    rcpp_result_gen = Rcpp::wrap(get_set_bits(mask));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -212,7 +247,10 @@ static const R_CallMethodDef CallEntries[] = {
     {"_numberofalleles_pr_mixture_given_n_independent_alleles", (DL_FUNC) &_numberofalleles_pr_mixture_given_n_independent_alleles, 4},
     {"_numberofalleles_pr_mixtures_given_n_independent_alleles", (DL_FUNC) &_numberofalleles_pr_mixtures_given_n_independent_alleles, 4},
     {"_numberofalleles_pr_k_allele_mixtures", (DL_FUNC) &_numberofalleles_pr_k_allele_mixtures, 2},
+    {"_numberofalleles_pr_num_distinct_multi_pop", (DL_FUNC) &_numberofalleles_pr_num_distinct_multi_pop, 2},
+    {"_numberofalleles_pr_num_distinct_multi_pop2", (DL_FUNC) &_numberofalleles_pr_num_distinct_multi_pop2, 2},
     {"_numberofalleles_pr_sum", (DL_FUNC) &_numberofalleles_pr_sum, 4},
+    {"_numberofalleles_get_set_bits", (DL_FUNC) &_numberofalleles_get_set_bits, 1},
     {"_numberofalleles_sample_mixture_masks_number_of_independent_alleles_locus", (DL_FUNC) &_numberofalleles_sample_mixture_masks_number_of_independent_alleles_locus, 3},
     {"_numberofalleles_sample_mixture_alleles_locus", (DL_FUNC) &_numberofalleles_sample_mixture_alleles_locus, 3},
     {"_numberofalleles_sample_allele_count_locus", (DL_FUNC) &_numberofalleles_sample_allele_count_locus, 3},

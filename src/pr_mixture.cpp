@@ -68,7 +68,7 @@ NumericVector pr_mixtures_given_n_independent_alleles(int number_of_independent_
 
   for (int i_mixture = 0; i_mixture < number_of_mixtures; i_mixture++){
 
-    IntegerMatrix::Column mix = mixtures( _ , i_mixture);
+    IntegerMatrix::Column mix = mixtures(_ , i_mixture);
 
     prs[i_mixture] = pr_mixture_given_n_independent_alleles(number_of_independent_alleles, theta, mix, f);
   }
@@ -102,4 +102,3 @@ NumericVector pr_k_allele_mixtures(IntegerMatrix x, std::vector<double> f){
 
   return prs;
 }
-

@@ -84,6 +84,7 @@ Rcpp::NumericVector get_genotype_probabilities(Rcpp::IntegerMatrix g, Rcpp::Nume
   return genotype_probabilities;
 }
 
+// [[Rcpp::export]]
 Rcpp::IntegerVector get_set_bits(uint64_t mask){
   int number_of_set_bits = __builtin_popcountll(mask);
 
@@ -206,6 +207,30 @@ std::vector<uint64_t> sample_mixture_masks_number_of_independent_alleles_locus(
   return mixture_masks;
 }
 
+std::vector<uint64_t> sample_mixture_masks_number_of_independent_alleles_locus_multi_pop(
+    NumericMatrix freqs_locus, IntegerVector number_of_indep_alleles_by_pop, int number_of_samples) {
+
+  std::vector<uint64_t> masks = get_allele_masks(freqs_locus.nrow());
+
+  std::vector<uint64_t> mixture_masks(number_of_samples);
+
+  for (int i_pop = 0; i_pop < number_of_indep_alleles_by_pop.size(); i_pop++){
+    int number_of_indep_alleles = number_of_indep_alleles_by_pop[i_pop];
+
+    NumericVector f = freqs_locus(_, i_pop);
+
+    for (int i_allele = 0; i_allele < number_of_indep_alleles; i_allele++){
+      IntegerVector s = r_sample_int(f, number_of_samples, true);
+
+      for (int i_sample = 0; i_sample < number_of_samples; i_sample++){
+        mixture_masks[i_sample] |= masks[s[i_sample] - 1];
+      }
+    }
+  }
+
+  return mixture_masks;
+}
+
 // [[Rcpp::export]]
 List sample_mixture_alleles_locus(NumericVector freqs_locus, int number_of_contributors, int number_of_samples) {
 
@@ -228,6 +253,14 @@ IntegerVector sample_allele_count_locus(NumericVector freqs_locus, int number_of
 IntegerVector sample_allele_count_num_indep_alleles_locus(NumericVector freqs_locus, int number_of_indep_alleles, int number_of_samples) {
 
   std::vector<uint64_t> mixture_masks = sample_mixture_masks_number_of_independent_alleles_locus(freqs_locus, number_of_indep_alleles, number_of_samples);
+
+  return popcount(mixture_masks);
+}
+
+// [[Rcpp::export]]
+IntegerVector sample_allele_count_num_indep_alleles_locus_multi_pop(NumericMatrix freqs_locus, IntegerVector number_of_indep_alleles_by_pop, int number_of_samples) {
+
+  std::vector<uint64_t> mixture_masks = sample_mixture_masks_number_of_independent_alleles_locus_multi_pop(freqs_locus, number_of_indep_alleles_by_pop, number_of_samples);
 
   return popcount(mixture_masks);
 }

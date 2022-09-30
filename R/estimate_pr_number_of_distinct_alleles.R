@@ -30,7 +30,7 @@
 #'p_hat_is <- estimate_pr_number_of_distinct_alleles(number_of_independent_alleles = 10,
 #'                                                   f = freqs$SE33, number_of_samples = 1e4,
 #'                                                   importance_sampling = TRUE)
-#'
+#'plot(p_hat_is/p-1)
 #'# Monte Carlo fails to estimate the tiny probabilities
 #'# but Importance Sampling is fairly accurate even with only 10k samples
 #'plot(seq(p), p_hat/p, type="b", lty=2, xlab="Number of distinct alleles")
@@ -121,7 +121,6 @@ estimate_pr_number_of_distinct_alleles <- function(number_of_independent_alleles
         # compute the pr. of each sample given n independent alleles
         m_pr_n <- numberofalleles:::pr_mixtures_given_n_independent_alleles(number_of_independent_alleles = number_of_independent_alleles,
                                                             theta = 0, mixtures = m, f = f)
-
 
         return(mean(m_pr_n / m_pr_k))
       }

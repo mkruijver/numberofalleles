@@ -25,8 +25,20 @@ pr_k_allele_mixtures <- function(x, f) {
     .Call('_numberofalleles_pr_k_allele_mixtures', PACKAGE = 'numberofalleles', x, f)
 }
 
+pr_num_distinct_multi_pop <- function(f, num_indep_by_pop) {
+    .Call('_numberofalleles_pr_num_distinct_multi_pop', PACKAGE = 'numberofalleles', f, num_indep_by_pop)
+}
+
+pr_num_distinct_multi_pop2 <- function(f, num_indep_by_pop) {
+    .Call('_numberofalleles_pr_num_distinct_multi_pop2', PACKAGE = 'numberofalleles', f, num_indep_by_pop)
+}
+
 pr_sum <- function(x1, fx1, x2, fx2) {
     .Call('_numberofalleles_pr_sum', PACKAGE = 'numberofalleles', x1, fx1, x2, fx2)
+}
+
+get_set_bits <- function(mask) {
+    .Call('_numberofalleles_get_set_bits', PACKAGE = 'numberofalleles', mask)
 }
 
 sample_mixture_masks_number_of_independent_alleles_locus <- function(freqs_locus, number_of_indep_alleles, number_of_samples) {
