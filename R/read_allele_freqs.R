@@ -37,7 +37,6 @@ read_allele_freqs <- function(filename, remove_zeroes = TRUE, normalise = TRUE){
     freqs[[names(df_without_N)[i_locus]]]  <- stats::setNames(f,nm =  alleles)
     N[names(df_without_N)[i_locus]] <- df_with_N[[i_locus]][length(df_with_N[[i_locus]])]
   }
-  attr(freqs,"N") <- N
 
   if (remove_zeroes){
     freqs <- lapply(freqs, function(x) x[x>0])
@@ -46,6 +45,8 @@ read_allele_freqs <- function(filename, remove_zeroes = TRUE, normalise = TRUE){
   if (normalise){
     freqs <- lapply(freqs, function(x) x/sum(x))
   }
+
+  attr(freqs,"N") <- N
 
   freqs
 }
